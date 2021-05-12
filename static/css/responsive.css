@@ -1,0 +1,52 @@
+/*==========  Responsive Settings  ==========*/
+
+/* Medium Devices, Desktops */
+@media only screen and (max-width : 992px) {
+.lauren-menu .menu-icons {display: none;}
+.post-slider .slider-prev, .post-slider .slider-next {top: 36%;}
+.error-image, .error-page {padding: 20px 0;}
+.error-page h1{margin-top: 0;}
+.insta-photos img {width: 140px; height: 140px;}
+.insta-photos li:last-child {display: none;}
+}
+
+/* Small Devices, Tablets */
+@media only screen and (max-width : 768px) {
+.lauren-menu .main-menu {display: none;}
+.lauren-menu .responsive-menu-bar {display: block;}
+.responsive-menu {display: block;}
+.error-page h1 {font-size: 30px; line-height: 34px;}
+.error-page p {font-size: 15px;}
+
+}
+
+/* Custom Break Size */ 
+@media only screen and (max-width : 620px) {
+.full-page .content-image-left, .full-page .content-image-right {float: none; width: 100%;}
+.insta-photos img {width: 100px; height: 100px;}
+}
+
+/* Extra Small Devices, Phones */ 
+@media only screen and (max-width : 480px) {
+.responsive-menu {left:-100%; width:100%!important}
+.post-slider .slider-prev, .post-slider .slider-next {top: 30%;}
+.post-slider .slider-nav i {height: 34px; width: 34px; line-height: 32px; font-size: 20px;}
+.contact-form input[type="email"], .contact-form input[type="text"] {width: 100%;}
+.full-page-content {padding: 0 30px;}
+.full-page-footer .post-share {display: block; margin-bottom: 30px;}
+.full-page-footer {padding-bottom: 60px;}
+.page .content-image-left, .page .content-image-right {float: none; width: 100%;}
+}
+
+/* Custom Break Size */
+@media only screen and (max-width : 380px) {
+.normal-post-footer .post-share {display: block; margin-bottom: 30px;}
+.normal-post-footer {padding-bottom: 60px;}
+.page-footer .post-share {display: block; margin-bottom: 30px;}
+.page-footer {padding-bottom: 60px;}
+.footer-social {display: none;}
+.footer-about img{margin-bottom: 30px;}
+.main-footer {padding: 50px 0;}
+.insta-photos img {width: 80px; height: 80px;}
+.insta-photos li:last-child {display: inline;}
+}
