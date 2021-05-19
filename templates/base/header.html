@@ -1,0 +1,83 @@
+<!-- Main Header -->
+<header class="main-header">
+    <div class="lauren-main-menu">
+        <div class="container">
+            <nav class="lauren-menu">
+                <ul class="main-menu">
+                    <li><a href="{% url 'home' %}">Home</a>
+                        <ul>
+                            <li><a href="{% url 'home' %}">Default</a></li>
+                            <li><a href="{% url 'minihome' %}">Minimal</a></li>
+                            <li><a href="home-light.html">Light Blog</a></li>
+                            <li><a href="home-writer.html">Writer Type</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="#">Pages</a>
+                        <ul>
+                            <li><a href="full-width.html">Full Width</a></li>
+                            <li><a href="404-error.html">404 Page</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">Posts</a>
+                        <ul>
+                            <li><a href="normal-post.html">Normal Post</a></li>
+                            <li><a href="video-post.html">Video Post</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <ul class="responsive-menu-bar">
+                    <li class="menu-button"><a href="#"><i class="fa fa-bars"></i></a></li>
+                    <li class="search-icon"><input class="search-box" placeholder="Search Anything.." type="text"><i
+                            class="fa fa-search"></i></li>
+                </ul>
+                <ul class="menu-icons">
+                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                    <li><a href="#"><i class="fa fa-rss"></i></a></li>
+                    <li class="search-icon"><input class="search-box" placeholder="Search Anything.." type="text"><i
+                            class="fa fa-search"></i></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <div class="lauren-logo">
+        <div class="container">
+            <a href="{% url 'home' %}"><img src="static/images/logo.png" alt="Main Logo"></a>
+        </div>
+    </div>
+</header><!-- main-header-END -->
+<!-- Responsive Menu -->
+<div class="responsive-menu">
+    <header>
+        <ul>
+            <li><a class="menu-button" href="#"><i class="fa fa-close"></i></a></li>
+        </ul>
+    </header>
+    <ul class="mobile-menu">
+        <li><a href="#">Home</a>
+            <ul>
+                <li><a href="index.html">Default</a></li>
+                <li><a href="home-minimal.html">Minimal</a></li>
+                <li><a href="home-light.html">Light Blog</a></li>
+                <li><a href="home-writer.html">Writer Type</a></li>
+            </ul>
+        </li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="#">Pages</a>
+            <ul>
+                <li><a href="full-width.html">Full Width</a></li>
+                <li><a href="404-error.html">404 Page</a></li>
+            </ul>
+        </li>
+        <li><a href="#">Posts</a>
+            <ul>
+                <li><a href="normal-post.html">Normal Post</a></li>
+                <li><a href="video-post.html">Video Post</a></li>
+            </ul>
+        </li>
+        <li><a href="contact.html">Contact</a></li>
+    </ul>
+</div><!-- responsive-menu-END -->
