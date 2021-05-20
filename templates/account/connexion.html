@@ -1,0 +1,30 @@
+{% extends 'base/main.html' %}
+{% block contenu %}
+
+<div class="container">
+
+    <h1>Connexion page</h1>
+
+    <form method="POST" action="">
+        {% csrf_token %}
+        <input type="text" name="username" placeholder="Username">
+        <input type="password" name="password" placeholder="Password">
+        <button style="background-color: #000;
+                       color: #fff;
+                       font-family: 'Lato', sans-serif;
+                       text-transform: uppercase;
+                       letter-spacing: .8px;
+                       padding: 9px;
+                       font-size: 10px;
+                       line-height: 10px;"
+                type="submit">
+            Login
+        </button>
+        {% for msg in messages %}
+        <p id="message">{{msg}}</p>
+        {% endfor %}
+    </form>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,107 @@
+{% extends 'base/main.html' %}
+{% block contenu %}
+        <!-- Main Content -->
+        <section class="main-content">
+            <div class="container">
+                <div class="row">
+                    <!-- Normal Posts -->
+                    <div class="col-md-8">
+                        <div class="page">
+                            <div class="page-container">
+                                <div class="page-image">
+                                    <img src="images/about-page.jpg" alt="">
+                                </div>
+                                <div class="page-title">
+                                    <h1>Hi. My Name Is Lauren</h1>
+                                    <time datetime="2017" class="post-date">May 1, 2017</time>
+                                </div>
+                                <div class="page-content">
+                                    <p>
+                                        I have always been told to believe in myself. But nobody has ever told me to believe in other people. I think that’s a pretty fundamental problem in our world. I’m often asked by people, how did I know what I wanted to dedicate myself to? I didn’t actually approach it that way at all. I asked myself, what didn’t I want to dedicate. I want to dedicate.
+                                    </p>
+                                    <img class="content-image-left" src="images/content-image-1.jpg" alt="">
+                                    <p>
+                                        She lived across the hall from me in our sophomore dorm, Julie from Accounting. I discovered no one called her Julie, except our Accounting teacher. JR to everyone else, at the peak of “Who Shot JR?”-mania on television. She ‘got’ Accounting; I did not. She was whip-smart about business, so lots of eye-rolls directed my way as she explained.
+                                    </p>
+                                    <p>
+                                        The problems are being fixed. And given Bagan’s importance to Myanmar’s tourist industry, the rebuilding will not take too long. But while Bagan heals and rehabs under watchful official eyes, it’s worth a look at what it’s like to experience the place. But while Bagan heals and rehabs.
+                                    </p>
+                                    <p>
+                                        I’m often asked by people, how did I know what I wanted to dedicate myself to? I didn’t actually approach it that way at all. I asked myself, what didn’t I want to dedicate. I’m often asked by people, how did I know what I wanted to dedicate myself to? I didn’t actually approach it that way at all. I asked myself, what didn’t I want to dedicate.
+                                    </p>
+                                </div>
+                                <div class="page-footer">
+                                    <ul class="post-share">
+                                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                    </ul>
+                                    <div class="read-more-button">
+                                        <span class="medium-button"><a href="#">Contact With Me</a></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- normal-posts-END -->
+                    <!-- Sidebar -->
+                    <div class="col-md-4">
+                        <div class="sidebar">
+                            <div class="widget widget-twitter">
+                                <div class="widget-title">
+                                    <h3>Tweets</h3>
+                                </div>
+                                <div class="widget-content">
+                                    <img src="images/widget-twitter.jpg" alt="">
+                                    <ul class="twitter-slider owl-carousel">
+                                        <li class="item tweet">
+                                            <p>I have always been told to believe in myself. But nobody has ever.</p>
+                                            <time datetime="2017" class="post-date">(5 min ago)</time>
+                                        </li>
+                                        <li class="item tweet">
+                                            <p>I have always been told to believe in myself. But nobody has ever.</p>
+                                            <time datetime="2017" class="post-date">(3 days ago)</time>
+                                        </li>
+                                        <li class="item tweet">
+                                            <p>I have always been told to believe in myself. But nobody has ever.</p>
+                                            <time datetime="2017" class="post-date">(2 years ago)</time>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="widget widget-recent-posts">
+                                <div class="widget-title">
+                                    <h3>Recent</h3>
+                                </div>
+                                {% load static %}
+                                <div class="widget-content">
+                                    <ul class="recent-posts">
+                                        <li class="recent-post clearfix">
+                                            <a href="#"><img src="{% static 'images/widget-recent-post-1.jpg' %}" alt=""></a>
+                                            <h6><a href="#">Believe Life</a></h6>
+                                            <p>I have always been told to believe want to dedicate</p>
+                                        </li>
+                                        <li class="recent-post clearfix">
+                                            <a href="#"><img src="{% static 'images/widget-recent-post-2.jpg' %}" alt=""></a>
+                                            <h6><a href="#">Dreams Coming</a></h6>
+                                            <p>The thing is, you can take on almost done today</p>
+                                        </li>
+                                        <li class="recent-post clearfix">
+                                            <a href="#"><img src="{% static 'images/widget-recent-post-3.jpg' %}" alt=""></a>
+                                            <h6><a href="#">Change Your Mind</a></h6>
+                                            <p>And she was looking at her phone, he said going</p>
+                                        </li>
+                                        <li class="recent-post clearfix">
+                                            <a href="#"><img src="{% static 'images/widget-recent-post-4.jpg' %}" alt=""></a>
+                                            <h6><a href="#">The Day Quit</a></h6>
+                                            <p>I have always been told to believe your destiny</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- siderbar-END -->
+                </div>
+            </div>
+        </section><!-- main-content-END -->
+{% endblock %}

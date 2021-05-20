@@ -1,0 +1,27 @@
+{% extends 'base/main.html' %}
+{% block contenu %}
+        <!-- Main Content -->
+        <section class="main-content">
+            <div class="container">
+                <div class="row">
+                    <!-- Normal Posts -->
+                    <div class="col-md-6">
+                        <div class="page">
+                            <div class="error-page">
+                                <h1>Trying to get<br>where you want to go?</h1>
+                                <p>This page isn't it.</p>
+                                <p>But while you're here, <a href="{% url 'home' %}">how about going home?</a></p>
+                            </div>
+                        </div>
+                    </div><!-- normal-posts-END -->
+                    <!-- Sidebar -->
+                    <div class="col-md-6">
+                        <div class="error-image">
+                            {% load static %}
+                            <img src="{% static 'images/error-page.png' %}" alt="">
+                        </div>
+                    </div><!-- siderbar-END -->
+                </div>
+            </div>
+        </section><!-- main-content-END -->
+{% endblock %}

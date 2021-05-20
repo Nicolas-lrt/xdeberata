@@ -12,11 +12,11 @@
                             <li><a href="home-writer.html">Writer Type</a></li>
                         </ul>
                     </li>
-                    <li><a href="about.html">About</a></li>
+                    <li><a href="{% url 'aboutPage' %}">About</a></li>
                     <li><a href="#">Pages</a>
                         <ul>
                             <li><a href="full-width.html">Full Width</a></li>
-                            <li><a href="404-error.html">404 Page</a></li>
+                            <li><a href="{% url 'error404' %}">404 Page</a></li>
                         </ul>
                     </li>
                     <li><a href="#">Posts</a>
@@ -26,6 +26,27 @@
                         </ul>
                     </li>
                     <li><a href="contact.html">Contact</a></li>
+                    <li><a href="contact.html">Boutique</a></li>
+                    {% if request.user.is_anonymous %}
+                    <li><a href="{% url 'sign_in' %}">Inscription/Connexion</a></li>
+                    {% else %}
+                    <li><a href="#">Bienvenu, {{ request.user }}</a>
+                        <ul>
+                            <li><a href="#">Mes commandes</a></li>
+                            <li><a href="{% url 'logout' %}">Déconnexion</a></li>
+                        </ul>
+                    </li>
+                    {% endif %}
+                    {% for group in request.user.groups.all %}
+                       {% if group.name == 'admin' %}
+                            <li><a href="#">Espace Admin</a>
+                                <ul>
+                                    <li><a href="#">Ajouter un post</a></li>
+                                    <li><a href="#">Ajouter un produit</a></li>
+                                </ul>
+                            </li>
+                       {% endif %}
+                    {% endfor %}
                 </ul>
                 <ul class="responsive-menu-bar">
                     <li class="menu-button"><a href="#"><i class="fa fa-bars"></i></a></li>
@@ -43,9 +64,10 @@
             </nav>
         </div>
     </div>
+    {% load static %}
     <div class="lauren-logo">
         <div class="container">
-            <a href="{% url 'home' %}"><img src="static/images/logo.png" alt="Main Logo"></a>
+            <a href="{% url 'home' %}"><img src="{% static 'images/logo.png' %}" alt="Main Logo"></a>
         </div>
     </div>
 </header><!-- main-header-END -->
@@ -57,19 +79,19 @@
         </ul>
     </header>
     <ul class="mobile-menu">
-        <li><a href="#">Home</a>
+        <li><a href="">Home</a>
             <ul>
-                <li><a href="index.html">Default</a></li>
-                <li><a href="home-minimal.html">Minimal</a></li>
+                <li><a href="{% url 'home' %}">Default</a></li>
+                <li><a href="{% url 'minihome' %}">Minimal</a></li>
                 <li><a href="home-light.html">Light Blog</a></li>
                 <li><a href="home-writer.html">Writer Type</a></li>
             </ul>
         </li>
-        <li><a href="about.html">About</a></li>
+        <li><a href="{% url 'aboutPage' %}">About</a></li>
         <li><a href="#">Pages</a>
             <ul>
                 <li><a href="full-width.html">Full Width</a></li>
-                <li><a href="404-error.html">404 Page</a></li>
+                <li><a href="{% url 'error404' %}">404 Page</a></li>
             </ul>
         </li>
         <li><a href="#">Posts</a>
@@ -79,5 +101,15 @@
             </ul>
         </li>
         <li><a href="contact.html">Contact</a></li>
+        {% if request.user.is_anonymous %}
+        <li><a href="#">S'inscrire/Se connecter</a></li>
+        {% else %}
+        <li><a href="#">{{ request.user }}</a>
+            <ul>
+                <li><a href="">Mes commandes</a></li>
+                <li><a href="{% url 'logout' %}">Déconnexion</a></li>
+            </ul>
+        </li>
+        {% endif %}
     </ul>
 </div><!-- responsive-menu-END -->
