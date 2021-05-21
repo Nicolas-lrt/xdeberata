@@ -4,11 +4,24 @@
 <div class="container">
 
     <h1>Connexion page</h1>
-
+    <br>
     <form method="POST" action="">
         {% csrf_token %}
-        <input type="text" name="username" placeholder="Username">
-        <input type="password" name="password" placeholder="Password">
+        <div class="col-md-2">
+            <label>Nom d'utilisateur</label>
+        </div>
+        <div class="col-md-10">
+            <input type="text" name="username">
+        </div>
+        <br>
+        <br>
+        <div class="col-md-2">
+            <label>Mot de passe</label>
+        </div>
+        <div class="col-md-10">
+            <input type="password" name="password">
+        </div>
+        <br>
         <button style="background-color: #000;
                        color: #fff;
                        font-family: 'Lato', sans-serif;
@@ -24,6 +37,8 @@
         <p id="message">{{msg}}</p>
         {% endfor %}
     </form>
+    <br>
+    <h2>Pas de compte ? <a href="{% url 'sign_in' %}">Cliquez ici pour s'inscrire</a></h2>
 
 </div>
 
