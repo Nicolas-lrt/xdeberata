@@ -1,12 +1,13 @@
 {% extends 'base/main.html' %}
 {% block contenu %}
+{% load static %}
         <!-- Homepage Slider -->
         <section class="main-slider">
             <div class="container">
                 <div class="owl-carousel post-slider">
                     <div class="item slider-post">
                         <div class="slider-image">
-                            <a href="#"><img src="static/images/popular-slider-1.jpg" alt=""></a>
+                            <a href="#"><img src="{% static 'images/popular-slider-1.jpg' %}" alt=""></a>
                         </div>
                         <div class="slider-title">
                             <h1><a href="#">A deep dive into the psychology of text</a></h1>
@@ -15,7 +16,7 @@
                     </div>
                     <div class="item slider-post">
                         <div class="slider-image">
-                            <a href="#"><img src="static/images/popular-slider-2.jpg" alt=""></a>
+                            <a href="#"><img src="{% static 'images/popular-slider-2.jpg' %}" alt=""></a>
                         </div>
                         <div class="slider-title">
                             <h1><a href="#">No Art Is Never Really About the Story</a></h1>
@@ -33,7 +34,7 @@
                     <div class="col-md-4">
                         <div class="featured-post">
                             <div class="featured-post-image">
-                                <img src="static/images/featured-post-1.jpg" alt="">
+                                <img src="{% static 'images/featured-post-1.jpg' %}" alt="">
                             </div>
                             <div class="featured-post-title">
                                 <h3><a href="#">Feel Lovely</a></h3>
@@ -44,7 +45,7 @@
                     <div class="col-md-4">
                         <div class="featured-post">
                             <div class="featured-post-image">
-                                <img src="static/images/featured-post-2.jpg" alt="">
+                                <img src="{% static 'images/featured-post-2.jpg' %}" alt="">
                             </div>
                             <div class="featured-post-title">
                                 <h3><a href="#">Mostly Hope</a></h3>
@@ -55,7 +56,7 @@
                     <div class="col-md-4">
                         <div class="featured-post">
                             <div class="featured-post-image">
-                                <img src="static/images/featured-post-3.jpg" alt="">
+                                <img src="{% static 'images/featured-post-3.jpg' %}" alt="">
                             </div>
                             <div class="featured-post-title">
                                 <h3><a href="#">Almost Done</a></h3>
@@ -76,7 +77,7 @@
                         <div class="normal-posts">
                             <div class="normal-post">
                                 <div class="normal-post-image">
-                                    <img src="static/images/normal-post-1.jpg" alt="">
+                                    <img src="{% static 'images/normal-post-1.jpg' %}" alt="">
                                 </div>
                                 <div class="normal-post-title">
                                     <span class="category"><a href="#">Daily</a></span>
@@ -101,7 +102,7 @@
                             </div>
                             <div class="normal-post">
                                 <div class="normal-post-image">
-                                    <img src="static/images/normal-post-2.jpg" alt="">
+                                    <img src="{% static 'images/normal-post-2.jpg' %}" alt="">
                                 </div>
                                 <div class="normal-post-title">
                                     <span class="category"><a href="#">Featured</a></span>
@@ -155,7 +156,7 @@
                                 <div class="col-md-6">
                                     <div class="mini-post">
                                         <div class="mini-post-image">
-                                            <img src="static/images/featured-post-4.jpg" alt="">
+                                            <img src="{% static 'images/featured-post-4.jpg' %}" alt="">
                                         </div>
                                         <div class="mini-post-title">
                                             <h3><a href="#">Believe Life</a></h3>
@@ -174,7 +175,7 @@
                                 <div class="col-md-6">
                                     <div class="mini-post">
                                         <div class="mini-post-image">
-                                            <img src="static/images/featured-post-5.jpg" alt="">
+                                            <img src="{% static 'images/featured-post-5.jpg' %}" alt="">
                                         </div>
                                         <div class="mini-post-title">
                                             <h3><a href="#">Dreams Coming</a></h3>
@@ -207,7 +208,7 @@
                                     <h3>About</h3>
                                 </div>
                                 <div class="widget-content">
-                                    <img src="static/images/widget-about.jpg" alt="">
+                                    <img src="{% static 'images/widget-about.jpg' %}" alt="">
                                     <p>Hello, my name is Jane Doe. Proin pelle augue consectetur. It's okey.</p>
                                     <span class="small-button"><a href="#">Read More ></a></span>
                                 </div>
@@ -218,15 +219,15 @@
                                 </div>
                                 <div class="widget-content">
                                     <ul class="insta-photos">
-                                        <li><a href="#"><img src="static/images/widget-instagram-1.jpg" alt=""></a></li>
-                                        <li><a href="#"><img src="static/images/widget-instagram-2.jpg" alt=""></a></li>
-                                        <li><a href="#"><img src="static/images/widget-instagram-3.jpg" alt=""></a></li>
-                                        <li><a href="#"><img src="static/images/widget-instagram-4.jpg" alt=""></a></li>
-                                        <li><a href="#"><img src="static/images/widget-instagram-5.jpg" alt=""></a></li>
-                                        <li><a href="#"><img src="static/images/widget-instagram-6.jpg" alt=""></a></li>
-                                        <li><a href="#"><img src="static/images/widget-instagram-7.jpg" alt=""></a></li>
-                                        <li><a href="#"><img src="static/images/widget-instagram-8.jpg" alt=""></a></li>
-                                        <li><a href="#"><img src="static/images/widget-instagram-9.jpg" alt=""></a></li>
+                                        <li><a href="#"><img src="{% static 'images/widget-instagram-1.jpg' %}" alt=""></a></li>
+                                        <li><a href="#"><img src="{% static 'images/widget-instagram-2.jpg' %}" alt=""></a></li>
+                                        <li><a href="#"><img src="{% static 'images/widget-instagram-3.jpg' %}" alt=""></a></li>
+                                        <li><a href="#"><img src="{% static 'images/widget-instagram-4.jpg' %}" alt=""></a></li>
+                                        <li><a href="#"><img src="{% static 'images/widget-instagram-5.jpg' %}" alt=""></a></li>
+                                        <li><a href="#"><img src="{% static 'images/widget-instagram-6.jpg' %}" alt=""></a></li>
+                                        <li><a href="#"><img src="{% static 'images/widget-instagram-7.jpg' %}" alt=""></a></li>
+                                        <li><a href="#"><img src="{% static 'images/widget-instagram-8.jpg' %}" alt=""></a></li>
+                                        <li><a href="#"><img src="{% static 'images/widget-instagram-9.jpg' %}" alt=""></a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -235,7 +236,7 @@
                                     <h3>Tweets</h3>
                                 </div>
                                 <div class="widget-content">
-                                    <img src="static/images/widget-twitter.jpg" alt="">
+                                    <img src="{% static 'images/widget-twitter.jpg' %}" alt="">
                                     <ul class="twitter-slider owl-carousel">
                                         <li class="item tweet">
                                             <p>I have always been told to believe in myself. But nobody has ever.</p>
@@ -259,22 +260,22 @@
                                 <div class="widget-content">
                                     <ul class="recent-posts">
                                         <li class="recent-post clearfix">
-                                            <a href="#"><img src="static/images/widget-recent-post-1.jpg" alt=""></a>
+                                            <a href="#"><img src="{% static 'images/widget-recent-post-1.jpg' %}" alt=""></a>
                                             <h6><a href="#">Believe Life</a></h6>
                                             <p>I have always been told to believe want to dedicate</p>
                                         </li>
                                         <li class="recent-post clearfix">
-                                            <a href="#"><img src="static/images/widget-recent-post-2.jpg" alt=""></a>
+                                            <a href="#"><img src="{% static 'images/widget-recent-post-2.jpg' %}" alt=""></a>
                                             <h6><a href="#">Dreams Coming</a></h6>
                                             <p>The thing is, you can take on almost done today</p>
                                         </li>
                                         <li class="recent-post clearfix">
-                                            <a href="#"><img src="static/images/widget-recent-post-3.jpg" alt=""></a>
+                                            <a href="#"><img src="{% static 'images/widget-recent-post-3.jpg' %}" alt=""></a>
                                             <h6><a href="#">Change Your Mind</a></h6>
                                             <p>And she was looking at her phone, he said going</p>
                                         </li>
                                         <li class="recent-post clearfix">
-                                            <a href="#"><img src="static/images/widget-recent-post-4.jpg" alt=""></a>
+                                            <a href="#"><img src="{% static 'images/widget-recent-post-4.jpg' %}" alt=""></a>
                                             <h6><a href="#">The Day Quit</a></h6>
                                             <p>I have always been told to believe your destiny</p>
                                         </li>
@@ -287,7 +288,7 @@
                                 </div>
                                 <div class="widget-content">
                                     <div class="ads-box">
-                                        <img src="static/images/ads-banner.jpg" alt="">
+                                        <img src="{% static 'images/ads-banner.jpg' %}" alt="">
                                     </div>
                                 </div>
                             </div>

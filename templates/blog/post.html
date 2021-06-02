@@ -1,0 +1,205 @@
+{% extends 'base/main.html' %}
+{% block contenu %}
+{% load static %}
+<!-- Main Content -->
+<section class="main-content">
+    <div class="container">
+        <div class="row">
+            <!-- Normal Posts -->
+            <div class="col-md-8">
+                <div class="page">
+                    <div class="post-page-container">
+                        <div class="page-image">
+                            <img src="{{ post.main_img.url }}" alt="">
+                        </div>
+                        <div class="page-title">
+                            <span class="category"><a href="#">{{ post.author }}</a></span>
+                            <h1>{{ post.title }}</h1>
+                            <time class="post-date">{{ post.date_added }}</time>
+                        </div>
+                        <div class="page-content">
+                            <p>
+                                {{ post.body }}
+                            </p>
+                        </div>
+                        <div class="post-page-footer">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="post-page-tags">
+                                        <ul class="post-tags">
+                                            <li><a href="#">Life</a></li>
+                                            <li><a href="#">Travel</a></li>
+                                            <li><a href="#">Love</a></li>
+                                            <li><a href="#">Daily</a></li>
+                                            <li><a href="#">Healt</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <ul class="post-share">
+                                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="page-navs clearfix">
+                        <ul class="page-nav">
+                            <li><a href="#">Prev Post</a></li>
+                            <li><a href="#">Next Post</a></li>
+                        </ul>
+                    </div>
+                    <div class="widget widget-author-box">
+                        <div class="widget-content">
+                            <div class="author-image">
+                                <img src="{% static 'images/author.jpg' %}" alt="">
+                            </div>
+                            <div class="author-box-content clearfix">
+                                <div class="author-name">
+                                    <h3>{{ post.author.user.first_name }} {{ post.author.user.last_name }}</h3>
+                                </div>
+                                <div class="author-story">
+                                    <p>I have always been told to believe in myself. But nobody has ever told me to
+                                        believe in other people. I think that’s a pretty fundamental problem in our
+                                        world. It’s worth a look at what it’s like to experience the place. <span><a
+                                                href="#"> Read More</a></span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="post-comments">
+                        <h1>Comments</h1>
+                        <br>
+                        <h2>Add a comment</h2>
+                        <br>
+                        <form method="POST" action="">
+                            {% csrf_token %}
+                            {% for champ in form %}
+                            {% if request.user.is_anonymous %}
+                            <div class="col-md-1">
+                                {{champ.label}}
+                            </div>
+                            {% endif %}
+                            <div class="col-md-11">
+                                {{champ}}
+                            </div>
+                            <br>
+                            {{champ.errors}}
+                            <br>
+                            <br>
+                            {% endfor %}
+                            <br>
+                            <button style="background-color: #000;
+                                           color: #fff;
+                                           font-family: 'Lato', sans-serif;
+                                           text-transform: uppercase;
+                                           letter-spacing: .8px;
+                                           padding: 12px;
+                                           font-size: 10px;
+                                           line-height: 10px;
+                                            margin-top: 2%"
+                                    type="submit">
+                                Submit
+                            </button>
+                        </form>
+                        <br>
+                        <h2>Comments on this post</h2>
+                        <br>
+                        {% for comment in post.comments.all %}
+                        <div class="widget widget-author-box">
+                            <div class="widget-content">
+                                <div class="author-box-content clearfix">
+                                    <div class="author-name">
+                                        <h3>{{ comment.name }}</h3>
+                                    </div>
+                                    <div class="author-story">
+                                        <p>{{ comment.content }}</p>
+                                    </div>
+                                    <time class="post-date">{{ comment.date_added }}</time>
+                                </div>
+                            </div>
+                        </div>
+                        {% empty %}
+                        <h3>No comments yet !</h3>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div><!-- normal-posts-END -->
+            <!-- Sidebar -->
+            <div class="col-md-4">
+                <div class="sidebar">
+                    <div class="widget widget-twitter">
+                        <div class="widget-title">
+                            <h3>Tweets</h3>
+                        </div>
+                        <div class="widget-content">
+                            <img src="{% static 'images/widget-twitter.jpg' %}" alt="">
+                            <ul class="twitter-slider owl-carousel">
+                                <li class="item tweet">
+                                    <p>I have always been told to believe in myself. But nobody has ever.</p>
+                                    <time datetime="2017" class="post-date">(5 min ago)</time>
+                                </li>
+                                <li class="item tweet">
+                                    <p>I have always been told to believe in myself. But nobody has ever.</p>
+                                    <time datetime="2017" class="post-date">(3 days ago)</time>
+                                </li>
+                                <li class="item tweet">
+                                    <p>I have always been told to believe in myself. But nobody has ever.</p>
+                                    <time datetime="2017" class="post-date">(2 years ago)</time>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="widget widget-recent-posts">
+                        <div class="widget-title">
+                            <h3>Recent</h3>
+                        </div>
+                        <div class="widget-content">
+                            <ul class="recent-posts">
+                                <li class="recent-post clearfix">
+                                    <a href="#"><img src="{% static 'images/widget-recent-post-1.jpg' %}"
+                                                     alt=""></a>
+                                    <h6><a href="#">Believe Life</a></h6>
+                                    <p>I have always been told to believe want to dedicate</p>
+                                </li>
+                                <li class="recent-post clearfix">
+                                    <a href="#"><img src="{% static 'images/widget-recent-post-2.jpg' %}"
+                                                     alt=""></a>
+                                    <h6><a href="#">Dreams Coming</a></h6>
+                                    <p>The thing is, you can take on almost done today</p>
+                                </li>
+                                <li class="recent-post clearfix">
+                                    <a href="#"><img src="{% static 'images/widget-recent-post-3.jpg' %}"
+                                                     alt=""></a>
+                                    <h6><a href="#">Change Your Mind</a></h6>
+                                    <p>And she was looking at her phone, he said going</p>
+                                </li>
+                                <li class="recent-post clearfix">
+                                    <a href="#"><img src="{% static 'images/widget-recent-post-4.jpg' %}"
+                                                     alt=""></a>
+                                    <h6><a href="#">The Day Quit</a></h6>
+                                    <p>I have always been told to believe your destiny</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="widget widget-ads-box">
+                        <div class="widget-title">
+                            <h3>Banner</h3>
+                        </div>
+                        <div class="widget-content">
+                            <div class="ads-box">
+                                <img src="{% static 'images/ads-banner.jpg' %}" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- siderbar-END -->
+        </div>
+    </div>
+</section><!-- main-content-END -->
+
+{% endblock %}
