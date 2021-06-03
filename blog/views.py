@@ -1,5 +1,8 @@
 from django.shortcuts import render, redirect
-from .forms import CommentForm, CommentLoggedForm
+
+from account.decorators import admin_only
+from account.models import Account
+from .forms import CommentForm, CommentLoggedForm, AddPost
 
 # Create your views here.
 from blog.models import Post
@@ -52,16 +55,25 @@ def postPage(request, slug):
     return render(request, 'blog/post.html', {'post': post, 'form': form})
 
 
-def add_comment_logged(request, slug):
-    post = Post.objects.get(slug=slug)
-    if request.method == 'POST':
-        name = request.username
-        email = request.email
-        content = request.POST.get('content')
-
-
-
 def postList(request):
     posts = Post.objects.all()
 
     return render(request, 'blog/post-list.html', {'posts': posts})
+
+
+@admin_only
+def add_post(request):
+    author = Account.objects.get(user_id=request.user.id)
+    if request.method == 'POST':
+        form = AddPost(request.POST)
+        if form.is_valid():
+            post = Post(author_id=author.id,
+                        title=request.POST.get('title'),
+                        body=request.POST.get('body'),
+                        main_img=request.POST.get('main_img'))
+            post.save()
+
+            return redirect('post-list')
+    else:
+        form = AddPost()
+    return render(request, 'blog/add-post.html', {'form': form})

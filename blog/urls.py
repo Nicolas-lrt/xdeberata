@@ -11,6 +11,7 @@ urlpatterns = [
     path('about', views.aboutPage, name='aboutPage'),
     path('post/<slug:slug>', views.postPage, name='post_detail'),
     path('post-list', views.postList, name='post-list'),
+    path('add-post', views.add_post, name='add-post'),
 ]
 
 if settings.DEBUG:

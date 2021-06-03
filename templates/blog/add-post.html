@@ -1,0 +1,41 @@
+{% extends 'base/main.html' %}
+{% block contenu %}
+
+<!-- Main Content -->
+<div class="main-content">
+    <div class="container">
+        <h1>Ecrire un nouveau poste sur le blog</h1>
+        <br>
+        <br>
+        <form method="POST" action="">
+            {% csrf_token %}
+            {% for champ in form %}
+            <div class="col-md-2">
+                {{ champ.label }}
+            </div>
+            <div class="col-md-10">
+                {{ champ }}
+            </div>
+            <br>
+            <br>
+            <br>
+            {% endfor %}
+            <br>
+            <button style="background-color: #000;
+                           color: #fff;
+                           font-family: 'Lato', sans-serif;
+                           text-transform: uppercase;
+                           letter-spacing: .8px;
+                           padding: 12px;
+                           font-size: 10px;
+                           line-height: 10px;
+                            margin-top: 2%"
+                    type="submit">
+                Submit
+            </button>
+        </form>
+    </div>
+</div>
+
+
+{% endblock %}
