@@ -7,7 +7,7 @@
         <h1>Ecrire un nouveau poste sur le blog</h1>
         <br>
         <br>
-        <form method="POST" action="">
+        <form method="POST" action="" enctype='multipart/form-data'>
             {% csrf_token %}
             {% for champ in form %}
             <div class="col-md-2">
@@ -31,7 +31,7 @@
                            line-height: 10px;
                             margin-top: 2%"
                     type="submit">
-                Submit
+                Send
             </button>
         </form>
     </div>

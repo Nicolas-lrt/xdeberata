@@ -31,10 +31,15 @@
                                 <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
                             </ul>
                             <div class="read-more-button">
+                                {% if admin %}
+                                <span class="medium-button"><a href="{% url 'delete-post' post.id %}">Delete post x</a></span>
+                                {% endif %}
                                 <span class="medium-button"><a href="{% url 'post_detail' post.slug %}">Read More ></a></span>
                             </div>
                         </div>
                     </div>
+                    {% empty %}
+                    <h3>No posts yet !</h3>
                     {% endfor %}
                 </div>
             </div>

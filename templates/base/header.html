@@ -28,7 +28,8 @@
                     <li><a href="contact.html">Contact</a></li>
                     <li><a href="contact.html">Boutique</a></li>
                     {% if request.user.is_anonymous %}
-                    <li><a href="{% url 'sign_in' %}">Inscription/Connexion</a></li>
+                    <li><a href="{% url 'sign_in' %}">Inscription</a></li>
+                    <li><a href="{% url 'login' %}">Connexion</a></li>
                     {% else %}
                     <li><a href="#">Bienvenu, {{ request.user }}</a>
                         <ul>

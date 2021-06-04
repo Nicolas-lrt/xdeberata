@@ -12,6 +12,8 @@ urlpatterns = [
     path('post/<slug:slug>', views.postPage, name='post_detail'),
     path('post-list', views.postList, name='post-list'),
     path('add-post', views.add_post, name='add-post'),
+    path('delete-p/<str:pk>', views.delete_post, name='delete-post'),
+    path('delete-c/<str:pk>', views.delete_comment, name='delete-comment'),
 ]
 
 if settings.DEBUG:
