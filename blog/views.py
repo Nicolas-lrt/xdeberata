@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.views.generic import UpdateView
 from slugify import slugify
 
 from account.decorators import admin_only
@@ -95,6 +96,7 @@ def add_post(request):
             post = Post(author_id=author.id,
                         title=title,
                         body=request.POST.get('body'),
+                        bodyPreview=request.POST.get('bodyPreview'),
                         main_img=request.FILES["main_img"],
                         slug=slug)
             post.save()
@@ -102,3 +104,9 @@ def add_post(request):
             return redirect('post-list')
 
     return render(request, 'blog/add-post.html', {'form': form})
+
+
+class UpdatePostView(UpdateView):
+    model = Post
+    template_name = 'blog/update-post.html'
+    fields = ['title', 'main_img', 'bodyPreview', 'body']

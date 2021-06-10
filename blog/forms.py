@@ -17,4 +17,9 @@ class CommentLoggedForm(forms.ModelForm):
 class AddPost(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['title', 'main_img', 'body']
+        fields = ['title', 'main_img', 'bodyPreview', 'body']
+
+        # widget = {
+        #     'main_img': forms.FileInput(attrs={'required': 'required'}),
+        # }
+    # main_img.widget.attrs['required'] = 'required'

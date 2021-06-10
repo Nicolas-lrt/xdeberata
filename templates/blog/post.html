@@ -10,11 +10,12 @@
                 <div class="page-navs clearfix">
                     <ul class="page-nav">
                         <li><a href="{% url 'post-list' %}">Back to Post List</a></li>
-                        <li>
-                            {% if admin %}
-                            <span class="medium-button"><a href="{% url 'delete-post' post.id %}">Delete post</a></span>
-                            {% endif %}
-                        </li>
+                        {% if admin %}
+                            <li>
+                                <span class="small-button"><a href="{% url 'delete-post' post.id %}">Delete post</a></span>
+                            </li>
+                        {% endif %}
+
                     </ul>
                 </div>
                 <div class="page">
@@ -29,7 +30,7 @@
                         </div>
                         <div class="page-content">
                             <p>
-                                {{ post.body }}
+                                {{ post.body|safe }}
                             </p>
                         </div>
                         <div class="post-page-footer">
@@ -54,6 +55,14 @@
                                     </ul>
                                 </div>
                             </div>
+
+                        <div class="page-navs clearfix">
+                            <ul class="page-nav">
+                                <li>
+                                    <span class="small-button"><a href="{% url 'update-post' post.pk %}">Edit Post</a></span>
+                                </li>
+                            </ul>
+                        </div>
                         </div>
                     </div>
                     <div class="page-navs clearfix">
