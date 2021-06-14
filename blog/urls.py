@@ -7,6 +7,7 @@ from . import views
 urlpatterns = [
     path('', views.index, name='home'),
     path('mini', views.miniindex, name='minihome'),
+    path('contact', views.contact, name='contact'),
     path('404', views.error404page, name='error404'),
     path('about', views.aboutPage, name='aboutPage'),
     path('post/<slug:slug>', views.postPage, name='post_detail'),

@@ -1,0 +1,196 @@
+{% extends 'base/main.html' %}
+{% block contenu %}
+{% load static %}
+<div class="main-content">
+    <div class="container">
+        <h1>Bienvenue dans la Boutique !</h1>
+        <br>
+        <!-- Filter Bar -->
+        <div class="col-md-8">
+            <div class="page">
+                <div class="widget">
+                    <div class="col-md-3">
+                        <h3>Filter bar</h3>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="col-md-6">
+                            <select name="Category1">
+                                <option value="">Catégorie</option>
+                                <option value="">Catégorie</option>
+                                <option value="">Catégorie</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <select name="Category1">
+                                <option value="">Catégorie</option>
+                                <option value="">Catégorie</option>
+                                <option value="">Catégorie</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        Search bar
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br><br>
+        <!-- End of Filter Bar -->
+        <div class="col-md-8">
+            <!-- Products -->
+            <div class="col-md-6">
+                <div class="normal-posts">
+                    <div class="normal-post">
+                        <div class="normal-post-image">
+                            <img src="{% static 'images/normal-post-1.jpg' %}" alt="">
+                        </div>
+                        <div class="normal-post-title">
+                            <span class="category"><a href="#">Category</a></span>
+                            <h2><a href="#">Product name</a></h2>
+                            <time datetime="2017" class="post-date">10$</time>
+                        </div>
+                        <div class="normal-post-content">
+                            <p>
+                                Short description of the product
+                                Short description of the product
+                                Short description of the product
+                            </p>
+                        </div>
+                        <div class="normal-post-footer">
+                            <div class="read-more-button">
+                                <span class="medium-button"><a href="#">See ></a></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="normal-posts">
+                    <div class="normal-post">
+                        <div class="normal-post-image">
+                            <img src="{% static 'images/normal-post-1.jpg' %}" alt="">
+                        </div>
+                        <div class="normal-post-title">
+                            <span class="category"><a href="#">Category</a></span>
+                            <h2><a href="#">Product name</a></h2>
+                            <time datetime="2017" class="post-date">10$</time>
+                        </div>
+                        <div class="normal-post-content">
+                            <p>
+                                Short description of the product
+                                Short description of the product
+                                Short description of the product
+                            </p>
+                        </div>
+                        <div class="normal-post-footer">
+                            <div class="read-more-button">
+                                <span class="medium-button"><a href="#">See ></a></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="normal-posts">
+                    <div class="normal-post">
+                        <div class="normal-post-image">
+                            <img src="{% static 'images/normal-post-1.jpg' %}" alt="">
+                        </div>
+                        <div class="normal-post-title">
+                            <span class="category"><a href="#">Category</a></span>
+                            <h2><a href="#">Product name</a></h2>
+                            <time datetime="2017" class="post-date">10$</time>
+                        </div>
+                        <div class="normal-post-content">
+                            <p>
+                                Short description of the product
+                                Short description of the product
+                                Short description of the product
+                            </p>
+                        </div>
+                        <div class="normal-post-footer">
+                            <div class="read-more-button">
+                                <span class="medium-button"><a href="#">See ></a></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="normal-posts">
+                    <div class="normal-post">
+                        <div class="normal-post-image">
+                            <img src="{% static 'images/normal-post-1.jpg' %}" alt="">
+                        </div>
+                        <div class="normal-post-title">
+                            <span class="category"><a href="#">Category</a></span>
+                            <h2><a href="#">Product name</a></h2>
+                            <time datetime="2017" class="post-date">10$</time>
+                        </div>
+                        <div class="normal-post-content">
+                            <p>
+                                Short description of the product
+                                Short description of the product
+                                Short description of the product
+                            </p>
+                        </div>
+                        <div class="normal-post-footer">
+                            <div class="read-more-button">
+                                <span class="medium-button"><a href="#">See ></a></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End of Products -->
+        </div>
+        <!-- Side -->
+        <div class="col-md-4">
+            <div class="sidebar">
+                <div class="widget widget-about">
+                    <div class="widget-title">
+                        <h3>About</h3>
+                    </div>
+                    <div class="widget-content">
+                        <img src="{% static 'images/widget-about.jpg' %}" alt="">
+                        <p>Hello, my name is Jane Doe. Proin pelle augue consectetur. It's okey.</p>
+                        <span class="small-button"><a href="#">Read More ></a></span>
+                    </div>
+                </div>
+                <div class="widget widget-recent-posts">
+                    <div class="widget-title">
+                        <h3>Recent</h3>
+                    </div>
+                    <div class="widget-content">
+                        <ul class="recent-posts">
+                            <li class="recent-post clearfix">
+                                <a href="#"><img src="{% static 'images/widget-recent-post-1.jpg' %}" alt=""></a>
+                                <h6><a href="#">Product name</a></h6>
+                                <p>Short description of the product</p>
+                            </li>
+                            <li class="recent-post clearfix">
+                                <a href="#"><img src="{% static 'images/widget-recent-post-2.jpg' %}" alt=""></a>
+                                <h6><a href="#">Product name</a></h6>
+                                <p>Short description of the product</p>
+                            </li>
+                            <li class="recent-post clearfix">
+                                <a href="#"><img src="{% static 'images/widget-recent-post-3.jpg' %}" alt=""></a>
+                                <h6><a href="#">Product name</a></h6>
+                                <p>Short description of the product</p>
+                            </li>
+                            <li class="recent-post clearfix">
+                                <a href="#"><img src="{% static 'images/widget-recent-post-4.jpg' %}" alt=""></a>
+                                <h6><a href="#">Product name</a></h6>
+                                <p>Short description of the product</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End of Side -->
+    </div>
+</div>
+
+
+{% endblock %}

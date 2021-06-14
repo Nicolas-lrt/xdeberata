@@ -25,8 +25,8 @@
                             <li><a href="{% url 'post-list' %}">Post list</a></li>
                         </ul>
                     </li>
-                    <li><a href="contact.html">Contact</a></li>
-                    <li><a href="contact.html">Boutique</a></li>
+                    <li><a href="{% url 'contact' %}">Contact</a></li>
+                    <li><a href="{% url 'home-shop' %}">Boutique</a></li>
                     {% if request.user.is_anonymous %}
                     <li><a href="{% url 'sign_in' %}">Inscription</a></li>
                     <li><a href="{% url 'login' %}">Connexion</a></li>

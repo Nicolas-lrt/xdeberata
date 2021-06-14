@@ -14,6 +14,10 @@ def index(request):
     return render(request, 'index.html')
 
 
+def contact(request):
+    return render(request, 'contact.html')
+
+
 def miniindex(request):
     return render(request, 'home-minimal.html')
 
