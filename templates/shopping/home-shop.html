@@ -3,7 +3,12 @@
 {% load static %}
 <div class="main-content">
     <div class="container">
-        <h1>Bienvenue dans la Boutique !</h1>
+        <div class="col-md-10">
+            <h1>Bienvenue dans la Boutique !</h1>
+        </div>
+        <div class="col-md-2">
+            <span class="large-button"><a href="#">Panier ({{ cartQty }})</a></span>
+        </div>
         <br>
         <!-- Filter Bar -->
         <div class="col-md-8">
@@ -38,22 +43,21 @@
         <!-- End of Filter Bar -->
         <div class="col-md-8">
             <!-- Products -->
-            <div class="col-md-6">
+            {% for product in products %}
+            <div class="col-md-6" style="width: 320px; height: 500px">
                 <div class="normal-posts">
                     <div class="normal-post">
-                        <div class="normal-post-image">
-                            <img src="{% static 'images/normal-post-1.jpg' %}" alt="">
+                        <div class="normal-post-image" style="width: 100%; height: auto">
+                            <img src="{{ product.mainImg.url }}" alt="">
                         </div>
                         <div class="normal-post-title">
-                            <span class="category"><a href="#">Category</a></span>
-                            <h2><a href="#">Product name</a></h2>
-                            <time datetime="2017" class="post-date">10$</time>
+                            <span class="category"><a href="#">{{ product.tag.nom }}</a></span>
+                            <h2><a href="#">{{ product.name }}</a></h2>
+                            <time class="post-date">{{ product.price }}$</time>
                         </div>
                         <div class="normal-post-content">
                             <p>
-                                Short description of the product
-                                Short description of the product
-                                Short description of the product
+                                {{ product.shortDesc }}
                             </p>
                         </div>
                         <div class="normal-post-footer">
@@ -64,84 +68,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="normal-posts">
-                    <div class="normal-post">
-                        <div class="normal-post-image">
-                            <img src="{% static 'images/normal-post-1.jpg' %}" alt="">
-                        </div>
-                        <div class="normal-post-title">
-                            <span class="category"><a href="#">Category</a></span>
-                            <h2><a href="#">Product name</a></h2>
-                            <time datetime="2017" class="post-date">10$</time>
-                        </div>
-                        <div class="normal-post-content">
-                            <p>
-                                Short description of the product
-                                Short description of the product
-                                Short description of the product
-                            </p>
-                        </div>
-                        <div class="normal-post-footer">
-                            <div class="read-more-button">
-                                <span class="medium-button"><a href="#">See ></a></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="normal-posts">
-                    <div class="normal-post">
-                        <div class="normal-post-image">
-                            <img src="{% static 'images/normal-post-1.jpg' %}" alt="">
-                        </div>
-                        <div class="normal-post-title">
-                            <span class="category"><a href="#">Category</a></span>
-                            <h2><a href="#">Product name</a></h2>
-                            <time datetime="2017" class="post-date">10$</time>
-                        </div>
-                        <div class="normal-post-content">
-                            <p>
-                                Short description of the product
-                                Short description of the product
-                                Short description of the product
-                            </p>
-                        </div>
-                        <div class="normal-post-footer">
-                            <div class="read-more-button">
-                                <span class="medium-button"><a href="#">See ></a></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="normal-posts">
-                    <div class="normal-post">
-                        <div class="normal-post-image">
-                            <img src="{% static 'images/normal-post-1.jpg' %}" alt="">
-                        </div>
-                        <div class="normal-post-title">
-                            <span class="category"><a href="#">Category</a></span>
-                            <h2><a href="#">Product name</a></h2>
-                            <time datetime="2017" class="post-date">10$</time>
-                        </div>
-                        <div class="normal-post-content">
-                            <p>
-                                Short description of the product
-                                Short description of the product
-                                Short description of the product
-                            </p>
-                        </div>
-                        <div class="normal-post-footer">
-                            <div class="read-more-button">
-                                <span class="medium-button"><a href="#">See ></a></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
             <!-- End of Products -->
         </div>
         <!-- Side -->
