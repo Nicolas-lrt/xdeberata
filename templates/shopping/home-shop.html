@@ -62,6 +62,9 @@
                         </div>
                         <div class="normal-post-footer">
                             <div class="read-more-button">
+                                {% if admin %}
+                                <span class="medium-button"><a href="{% url 'delete-product' product.id %}">Delete product x</a></span>
+                                {% endif %}
                                 <span class="medium-button"><a href="#">See ></a></span>
                             </div>
                         </div>
