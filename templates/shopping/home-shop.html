@@ -48,7 +48,9 @@
                 <div class="normal-posts">
                     <div class="normal-post">
                         <div class="normal-post-image" style="width: 100%; height: auto">
+                            {% if product.mainImg %}
                             <img src="{{ product.mainImg.url }}" alt="">
+                            {% endif %}
                         </div>
                         <div class="normal-post-title">
                             <span class="category"><a href="#">{{ product.tag.nom }}</a></span>

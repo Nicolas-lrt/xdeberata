@@ -10,7 +10,7 @@ from ckeditor.fields import RichTextField
 class Post(models.Model):
     author = models.ForeignKey(Account, verbose_name='Author of the post', on_delete=models.CASCADE)
     title = models.CharField(max_length=255, null=True)
-    slug = models.SlugField(max_length=40, null=True)
+    slug_post = models.SlugField(max_length=40, null=True)
     # body = models.TextField(max_length=3000, null=True)
     body = RichTextField(blank=True, null=True)
     bodyPreview = models.TextField(max_length=500, null=True)

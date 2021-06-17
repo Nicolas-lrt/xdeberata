@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic import UpdateView
 from slugify import slugify
-
 from account.decorators import admin_only
 from account.models import Account
 from .forms import CommentForm, CommentLoggedForm, AddPost
@@ -31,7 +30,7 @@ def aboutPage(request):
 
 
 def postPage(request, slug):
-    post = Post.objects.get(slug=slug)
+    post = Post.objects.get(slug_post=slug)
     logged = request.user.is_authenticated
     admin = 0
     for group in request.user.groups.all():
@@ -47,7 +46,7 @@ def postPage(request, slug):
                 comment.email = request.user.email
                 comment.save()
 
-                return redirect('post_detail', slug=post.slug)
+                return redirect('post_detail', slug=post.slug_post)
         else:
             form = CommentForm(request.POST)
 
@@ -56,7 +55,7 @@ def postPage(request, slug):
                 comment.post = post
                 comment.save()
 
-                return redirect('post_detail', slug=post.slug)
+                return redirect('post_detail', slug=post.slug_post)
     elif logged:
         form = CommentLoggedForm()
     else:
@@ -102,7 +101,7 @@ def add_post(request):
                         body=request.POST.get('body'),
                         bodyPreview=request.POST.get('bodyPreview'),
                         main_img=request.FILES["main_img"],
-                        slug=slug)
+                        slug_post=slug)
             post.save()
 
             return redirect('post-list')

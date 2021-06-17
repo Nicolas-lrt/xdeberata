@@ -1,7 +1,10 @@
+from ckeditor.fields import RichTextField
+from django.core.validators import MinValueValidator
 from django.db import models
 
 
 # Create your models here.
+from slugify import slugify
 
 
 class Tag(models.Model):
@@ -13,10 +16,11 @@ class Tag(models.Model):
 
 class Product(models.Model):
     name = models.CharField(max_length=255)
-    price = models.FloatField(null=True)
+    slug_prod = models.SlugField(max_length=40, null=True)
+    price = models.FloatField(null=True,  validators=[MinValueValidator(0.0)])
     tag = models.ManyToManyField(Tag)
-    mainDesc = models.TextField(max_length=2000, null=True)
-    shortDesc = models.CharField(max_length=255, null=True)
+    mainDesc = RichTextField(blank=True, null=True)
+    shortDesc = models.TextField(max_length=255, null=True)
     mainImg = models.ImageField(upload_to='images/', null=True, blank=True)
     additionalImg1 = models.ImageField(upload_to='images/', null=True, blank=True)
     additionalImg2 = models.ImageField(upload_to='images/', null=True, blank=True)
@@ -30,3 +34,6 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+    def setSlug(self):
+        self.slug = slugify(self.name)
