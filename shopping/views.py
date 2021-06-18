@@ -42,7 +42,21 @@ class AddProduct(CreateView):
     success_url = reverse_lazy('home-shop')
 
 
-
+def product_detail(request, pk):
+    produit = Product.objects.get(id=pk)
+    images = {
+        produit.additionalImg1 or None,
+        produit.additionalImg2 or None,
+        produit.additionalImg3 or None,
+        produit.additionalImg4 or None,
+        produit.additionalImg5 or None,
+        produit.additionalImg6 or None,
+        produit.additionalImg7 or None,
+        produit.additionalImg8 or None,
+        produit.additionalImg9 or None,
+    }
+    context = {'product': produit, 'images': images}
+    return render(request, 'shopping/product-detail.html', context)
 
 # @admin_only
 # def add_product(request):

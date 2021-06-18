@@ -1,0 +1,44 @@
+{% extends 'base/main.html' %}
+{% block contenu %}
+{% load static %}
+
+<div class="main-content">
+    <div class="container">
+        <div class="col-md-8">
+            <div class="post-page-container">
+                <div class="page-image">
+                    <div class="owl-carousel post-slider">
+                        <div class="item slider-post">
+                            <div class="slider-image">
+                                <img src="{{ product.mainImg.url }}" alt="">
+                            </div>
+                        </div>
+                        {% for image in images %}
+                        {% if image %}
+                        <div class="item slider-post">
+                            <div class="slider-image">
+                                <img src="{{ image.url }}" alt="">
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+
+                    </div>
+                    <div class="page-title">
+                        <span class="category"><a href="#">empty now</a></span>
+                        <h1>{{ product.name }}</h1>
+                        <time class="post-date">{{ product.price }}$</time>
+                    </div>
+                    <div class="page-content">
+                        <p>
+                            {{ product.mainDesc|safe }}
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% endblock %}

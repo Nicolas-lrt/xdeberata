@@ -49,12 +49,12 @@
                     <div class="normal-post">
                         <div class="normal-post-image" style="width: 100%; height: auto">
                             {% if product.mainImg %}
-                            <img src="{{ product.mainImg.url }}" alt="">
+                            <a href="{% url 'product-detail' product.id %}"><img src="{{ product.mainImg.url }}" alt=""></a>
                             {% endif %}
                         </div>
                         <div class="normal-post-title">
                             <span class="category"><a href="#">{{ product.tag.nom }}</a></span>
-                            <h2><a href="#">{{ product.name }}</a></h2>
+                            <h2><a href="{% url 'product-detail' product.id %}">{{ product.name }}</a></h2>
                             <time class="post-date">{{ product.price }}$</time>
                         </div>
                         <div class="normal-post-content">
@@ -67,7 +67,7 @@
                                 {% if admin %}
                                 <span class="medium-button"><a href="{% url 'delete-product' product.id %}">Delete product x</a></span>
                                 {% endif %}
-                                <span class="medium-button"><a href="#">See ></a></span>
+                                <span class="medium-button"><a href="{% url 'product-detail' product.id %}">See ></a></span>
                             </div>
                         </div>
                     </div>

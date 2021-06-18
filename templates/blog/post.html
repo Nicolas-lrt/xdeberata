@@ -11,9 +11,9 @@
                     <ul class="page-nav">
                         <li><a href="{% url 'post-list' %}">Back to Post List</a></li>
                         {% if admin %}
-                            <li>
-                                <span class="small-button"><a href="{% url 'delete-post' post.id %}">Delete post</a></span>
-                            </li>
+                        <li>
+                            <span class="small-button"><a href="{% url 'delete-post' post.id %}">Delete post</a></span>
+                        </li>
                         {% endif %}
 
                     </ul>
@@ -56,13 +56,14 @@
                                 </div>
                             </div>
 
-                        <div class="page-navs clearfix">
-                            <ul class="page-nav">
-                                <li>
-                                    <span class="small-button"><a href="{% url 'update-post' post.pk %}">Edit Post</a></span>
-                                </li>
-                            </ul>
-                        </div>
+                            <div class="page-navs clearfix">
+                                <ul class="page-nav">
+                                    <li>
+                                        <span class="small-button"><a
+                                                href="{% url 'update-post' post.pk %}">Edit Post</a></span>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                     <div class="page-navs clearfix">
@@ -89,6 +90,7 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Comment section -->
                     <div class="post-comments">
                         <h1>Comments</h1>
                         <br>
@@ -152,6 +154,7 @@
                         <h3>No comments yet !</h3>
                         {% endfor %}
                     </div>
+                    <!-- End of Comment section -->
                 </div>
             </div><!-- normal-posts-END -->
             <!-- Sidebar -->
