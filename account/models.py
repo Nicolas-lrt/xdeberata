@@ -32,4 +32,4 @@ class CartLine(models.Model):
         return round(self.product.price * float(self.quantity), 2)
 
     def __str__(self):
-        return 'User \'' + self.client.user.username + '\' cart line'
+        return '\'' + self.client.user.username + '\' user cart line'

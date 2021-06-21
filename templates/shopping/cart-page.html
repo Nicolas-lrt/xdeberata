@@ -1,0 +1,61 @@
+{% extends 'base/main.html' %}
+{% block contenu %}
+
+<div class="main-content">
+    <div class="container">
+        <h1>Page du panier</h1>
+        {% if cart %}
+        <table>
+            <thead>
+            <tr>
+                <th>Produit</th>
+                <th>Quantité</th>
+                <th>Prix</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            {% for cart_line in cart %}
+            <tr>
+                <td>
+                    <a href="{% url 'product-detail' cart_line.product.id %}" style="color: black">
+                        {{ cart_line.product.name }}</a>
+                </td>
+                <td>
+                    {{cart_line.quantity}}
+                    <a style="" href="{% url 'remove-from-cart' cart_line.product.id %}">-</a>
+                    <a style="" href="{% url 'addToCart' cart_line.product.id 1 %}">+</a>
+                </td>
+                <td>
+                    {{ cart_line.product.price }}€
+                </td>
+                <td><a href="{% url 'clear-cart-line' cart_line.id %}">Supprimer</a></td>
+            </tr>
+            {% endfor %}
+            <tfoot>
+            <tr>
+                <td>
+                    <strong>Total</strong>
+                </td>
+                <td>
+                    <strong>{{ qtyTotal }}</strong>
+                </td>
+                <td>
+                    <strong>{{ total }}€</strong>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+        <br>
+        <br>
+        <span class="medium-button"><a href="#">Valider la commande</a>
+        <span class="medium-button"><a href="{% url 'clear-cart' %}">Vider le panier</a>
+        <span class="medium-button"><a href="{% url 'home-shop' %}">Retourner à la boutique</a>
+        {% else %}
+        <br>
+        <h3>Panier vide !</h3>
+        <p>Remplissez le en <a href="{% url 'home-shop' %}">retournant à la boutique</a> !</p>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

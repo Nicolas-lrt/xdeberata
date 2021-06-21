@@ -24,21 +24,29 @@
                         {% endfor %}
                     </div>
 
-                    </div>
-                    <div class="page-title">
-                        <span class="category"><a href="#">empty now</a></span>
-                        <h1>{{ product.name }}</h1>
-                        <time class="post-date">{{ product.price }}$</time>
-                    </div>
-                    <div class="page-content">
-                        <p>
-                            {{ product.mainDesc|safe }}
-                        </p>
-                    </div>
-
+                </div>
+                <div class="page-title">
+                    <span class="category"><a href="#">empty now</a></span>
+                    <h1>{{ product.name }}</h1>
+                    <time class="post-date">{{ product.price }}$</time>
+                </div>
+                <div class="page-content">
+                    <p>
+                        {{ product.mainDesc|safe }}
+                    </p>
                 </div>
             </div>
+            <br>
+            {% if request.user.is_authenticated %}
+            <span class="medium-button"><a href="{% url 'addToCart' product.id 1 %}">Ajouter au panier</a></span>
+            {% endif %}
+        </div>
+        <div class="col-md-4">
+            {% if request.user.is_authenticated %}
+            <span class="medium-button"><a href="{% url 'cart-page' %}">Panier ({{ cartQty }})</a></span>
+            {% endif %}
         </div>
     </div>
+</div>
 
-    {% endblock %}
+{% endblock %}
