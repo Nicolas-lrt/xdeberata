@@ -70,7 +70,7 @@
                                 <span class="small-button"><a href="{% url 'delete-product' product.id %}">Delete product x</a></span>
                                 {% endif %}
                                 {% if request.user.is_authenticated %}
-                                <span class="small-button"><a href="{% url 'addToCart' product.id 1 %}">Buy ></a></span>
+                                <span class="small-button"><a href="{% url 'addToCart' product.id 1 %}">Add ></a></span>
                                 {% endif %}
                                 <span class="small-button"><a href="{% url 'product-detail' product.id %}">See ></a></span>
                             </div>

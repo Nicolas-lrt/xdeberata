@@ -37,6 +37,7 @@
                 </div>
             </div>
             <br>
+            <span class="medium-button"><a href="#">Acheter en un clic</a></span>
             {% if request.user.is_authenticated %}
             <span class="medium-button"><a href="{% url 'addToCart' product.id 1 %}">Ajouter au panier</a></span>
             {% endif %}

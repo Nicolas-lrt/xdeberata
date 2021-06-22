@@ -3,7 +3,7 @@
 
 <div class="main-content">
     <div class="container">
-        <h1>Page du panier</h1>
+        <h1>Mon panier</h1><br>
         {% if cart %}
         <table>
             <thead>
@@ -16,46 +16,62 @@
             </thead>
             {% for cart_line in cart %}
             <tr>
-                <td>
-                    <a href="{% url 'product-detail' cart_line.product.id %}" style="color: black">
-                        {{ cart_line.product.name }}</a>
+                <td style="font-weight: bold">
+                    <img src="{{ cart_line.product.mainImg.url }}" style="width: 150px">
+                    <a href="{% url 'product-detail' cart_line.product.id %}">{{ cart_line.product.name }}</a>
                 </td>
-                <td>
+                <td style="text-align: center">
+                    <a style="margin-right: 40%" href="{% url 'remove-from-cart' cart_line.product.id %}">-</a>
                     {{cart_line.quantity}}
-                    <a style="" href="{% url 'remove-from-cart' cart_line.product.id %}">-</a>
-                    <a style="" href="{% url 'addToCart' cart_line.product.id 1 %}">+</a>
+                    <a style="margin-left: 40%" href="{% url 'addToCart' cart_line.product.id 1 %}">+</a>
                 </td>
                 <td>
                     {{ cart_line.product.price }}€
                 </td>
-                <td><a href="{% url 'clear-cart-line' cart_line.id %}">Supprimer</a></td>
+                <td style="text-align: center; font-weight: bold">
+                    <a href="{% url 'clear-cart-line' cart_line.id %}">Supprimer</a>
+                </td>
             </tr>
             {% endfor %}
             <tfoot>
             <tr>
-                <td>
+                <td style="font-size: 22px">
                     <strong>Total</strong>
                 </td>
                 <td>
-                    <strong>{{ qtyTotal }}</strong>
+                    <strong>{{ qtyTotal }}  produit(s)</strong>
                 </td>
                 <td>
                     <strong>{{ total }}€</strong>
+                </td>
+                <td style="text-align: center; font-weight: normal;">
+                    <span class="medium-button"><a href="{% url 'clear-cart' %}">Vider le panier</a></span>
                 </td>
             </tr>
             </tfoot>
         </table>
         <br>
         <br>
-        <span class="medium-button"><a href="#">Valider la commande</a>
-        <span class="medium-button"><a href="{% url 'clear-cart' %}">Vider le panier</a>
-        <span class="medium-button"><a href="{% url 'home-shop' %}">Retourner à la boutique</a>
+        <span class="medium-button"><a href="#">Valider la commande</a></span>
+        <span class="medium-button"><a href="{% url 'home-shop' %}">Retourner à la boutique</a></span>
         {% else %}
         <br>
-        <h3>Panier vide !</h3>
-        <p>Remplissez le en <a href="{% url 'home-shop' %}">retournant à la boutique</a> !</p>
+        <h3>Panier vide !</h3><br>
+        <p>Remplissez le en <a href="{% url 'home-shop' %}" style="font-weight: bold">retournant à la boutique</a> !</p>
         {% endif %}
     </div>
 </div>
-
+<style>
+    table, th, td {
+        border: 1px solid black;
+        padding: 1%
+    }
+    table {
+        width: 100%;
+    }
+    thead, tfoot{
+        font-weight: bold;
+        font-size: 19px;
+    }
+</style>
 {% endblock %}
