@@ -8,7 +8,7 @@
         <table>
             <thead>
             <tr>
-                <th>Produit</th>
+                <th>Produit(s)</th>
                 <th>Quantité</th>
                 <th>Prix</th>
                 <th>Action</th>
@@ -17,8 +17,10 @@
             {% for cart_line in cart %}
             <tr>
                 <td style="font-weight: bold">
-                    <img src="{{ cart_line.product.mainImg.url }}" style="width: 150px">
-                    <a href="{% url 'product-detail' cart_line.product.id %}">{{ cart_line.product.name }}</a>
+                    <a href="{% url 'product-detail' cart_line.product.id %}">
+                        <img src="{{ cart_line.product.mainImg.url }}" style="width: 150px">
+                        {{ cart_line.product.name }}
+                    </a>
                 </td>
                 <td style="text-align: center">
                     <a style="margin-right: 40%" href="{% url 'remove-from-cart' cart_line.product.id %}">-</a>
@@ -64,7 +66,7 @@
 <style>
     table, th, td {
         border: 1px solid black;
-        padding: 1%
+        padding: 1%;
     }
     table {
         width: 100%;

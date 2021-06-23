@@ -10,6 +10,14 @@ from account.forms import CreateAccount
 from account.models import Account
 
 
+def isAdmin(request):
+    admin = 0
+    for group in request.user.groups.all():
+        if group.name == 'admin':
+            admin = 1
+    return admin
+
+
 def logoutUser(request):
     logout(request)
     return redirect('home')

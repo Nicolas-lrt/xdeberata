@@ -3,6 +3,7 @@ from django.views.generic import UpdateView
 from slugify import slugify
 from account.decorators import admin_only
 from account.models import Account
+from account.views import isAdmin
 from .forms import CommentForm, CommentLoggedForm, AddPost
 
 # Create your views here.
@@ -32,10 +33,6 @@ def aboutPage(request):
 def postPage(request, slug):
     post = Post.objects.get(slug_post=slug)
     logged = request.user.is_authenticated
-    admin = 0
-    for group in request.user.groups.all():
-        if group.name == 'admin':
-            admin = 1
     if request.method == 'POST':
         if logged:
             form = CommentLoggedForm(request.POST)
@@ -61,16 +58,12 @@ def postPage(request, slug):
     else:
         form = CommentForm()
 
-    return render(request, 'blog/post.html', {'post': post, 'form': form, 'admin': admin})
+    return render(request, 'blog/post.html', {'post': post, 'form': form, 'admin': isAdmin(request)})
 
 
 def postList(request):
     posts = Post.objects.all()
-    admin = 0
-    for group in request.user.groups.all():
-        if group.name == 'admin':
-            admin = 1
-    return render(request, 'blog/post-list.html', {'posts': posts, 'admin': admin})
+    return render(request, 'blog/post-list.html', {'posts': posts, 'admin': isAdmin(request)})
 
 
 @admin_only

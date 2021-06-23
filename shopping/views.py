@@ -8,6 +8,7 @@ from slugify import slugify
 
 from account.decorators import admin_only
 from account.models import Account, CartLine
+from account.views import isAdmin
 from shopping.forms import AddProductForm
 from shopping.models import Product
 
@@ -25,12 +26,7 @@ def getCartQty(request):
 
 def home_shop(request):
     produits = Product.objects.all()
-    admin = 0
-    for group in request.user.groups.all():
-        if group.name == 'admin':
-            admin = 1
-
-    context = {'products': produits, 'cartQty': getCartQty(request), 'admin': admin}
+    context = {'products': produits, 'cartQty': getCartQty(request), 'admin': isAdmin(request)}
 
     return render(request, 'shopping/home-shop.html', context)
 

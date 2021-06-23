@@ -55,15 +55,17 @@
                                     </ul>
                                 </div>
                             </div>
-
+                            {% if admin %}
                             <div class="page-navs clearfix">
                                 <ul class="page-nav">
                                     <li>
-                                        <span class="small-button"><a
-                                                href="{% url 'update-post' post.pk %}">Edit Post</a></span>
+                                        <span class="small-button">
+                                            <a href="{% url 'update-post' post.pk %}">Edit Post</a>
+                                        </span>
                                     </li>
                                 </ul>
                             </div>
+                            {% endif %}
                         </div>
                     </div>
                     <div class="page-navs clearfix">
