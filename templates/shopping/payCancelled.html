@@ -1,0 +1,15 @@
+{% extends 'base/main.html' %}
+{% block contenu %}
+
+<div class="main-content">
+    <div class="container">
+        <h1>Paiement annulé !</h1>
+        <p>
+            Retournez à la boutique <a href="{% url 'home-shop' %}">en cliquant ici</a>,
+            ou retournez à votre panier <a href="{% url 'cart-page' %}">en cliquant ici</a>
+        </p>
+    </div>
+</div>
+
+
+{% endblock %}

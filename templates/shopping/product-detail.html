@@ -41,6 +41,10 @@
             {% if request.user.is_authenticated %}
             <span class="medium-button"><a href="{% url 'addToCart' product.id 1 %}">Ajouter au panier</a></span>
             {% endif %}
+            {% if admin %}
+            <span class="medium-button"><a href="{% url 'delete-product' product.id %}">Supprimer le produit</a></span>
+            {% endif %}
+
         </div>
         <div class="col-md-4">
             {% if request.user.is_authenticated %}

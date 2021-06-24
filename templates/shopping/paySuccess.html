@@ -1,0 +1,15 @@
+{% extends 'base/main.html' %}
+{% block contenu %}
+
+<div class="main-content">
+    <div class="container">
+        <h1>Paiement validé avec succès !</h1>
+        <p>
+            Retournez à la boutique <a href="{% url 'home-shop' %}">en cliquant ici</a>,
+            allez voir vos commandes <a href="#">en cliquant ici</a>.
+        </p>
+    </div>
+</div>
+
+
+{% endblock %}

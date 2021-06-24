@@ -15,6 +15,10 @@ urlpatterns = [
     path('remove-from-cart/<str:pk>', views.removeFromCart, name='remove-from-cart'),
     path('clear-cart/', views.clearCart, name='clear-cart'),
     path('cart/', views.cartPage, name='cart-page'),
+    path('config/', views.stripe_config),
+    path('create-checkout-session/', views.create_checkout_session),
+    path('success/', views.SuccessView.as_view()),
+    path('cancelled/', views.CancelledView.as_view()),
 
 ]
 

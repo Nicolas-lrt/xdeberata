@@ -1,14 +1,18 @@
+import stripe
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 
 # Create your views here.
 from django.urls import reverse_lazy, reverse
-from django.views.generic import CreateView
+from django.views.decorators.csrf import csrf_exempt
+from django.views.generic import CreateView, TemplateView
 from slugify import slugify
 
 from account.decorators import admin_only
 from account.models import Account, CartLine
 from account.views import isAdmin
+from projet import settings
 from shopping.forms import AddProductForm
 from shopping.models import Product
 
@@ -81,7 +85,6 @@ def cartPage(request):
     cart = CartLine.objects.filter(client__in=client)
     for cart_line in cart:
         total += cart_line.total()
-    print(request)
 
     return render(request, 'shopping/cart-page.html', {'cart': cart, 'total': total, 'qtyTotal': getCartQty(request)})
 
@@ -113,54 +116,75 @@ def product_detail(request, pk):
         produit.additionalImg8 or None,
         produit.additionalImg9 or None,
     }
-    context = {'product': produit, 'images': images, 'cartQty': getCartQty(request)}
+    context = {'product': produit,
+               'images': images,
+               'cartQty': getCartQty(request),
+               'admin': isAdmin(request)
+               }
     return render(request, 'shopping/product-detail.html', context)
 
-# @admin_only
-# def add_product(request):
-#     form = AddProductForm()
-#     if request.method == 'POST':
-#         form = AddProductForm(request.POST)
-#         if form.is_valid():
-#             name = request.POST.get('name')
-#             slug = slugify(name)
-#             product = Product(name=name,
-#                               slug_prod=slug,
-#                               price=request.POST.get('price'),
-#                               mainDesc=request.POST.get('mainDesc'),
-#                               shortDesc=request.POST.get('shortDesc'),
-#                               mainImg=request.FILES["mainImg"]
-#                               )
-#             product.tag.set(request.POST.get('tag'))
-#             if request.FILES["additionalImg1"]:
-#                 product.additionalImg1 = request.FILES["additionalImg1"]
-#
-#             if request.FILES["additionalImg2"]:
-#                 product.additionalImg2 = request.FILES["additionalImg2"]
-#
-#             if request.FILES["additionalImg3"]:
-#                 product.additionalImg3 = request.FILES["additionalImg3"]
-#
-#             if request.FILES["additionalImg4"]:
-#                 product.additionalImg4 = request.FILES["additionalImg4"]
-#
-#             if request.FILES["additionalImg5"]:
-#                 product.additionalImg5 = request.FILES["additionalImg5"]
-#
-#             if request.FILES["additionalImg6"]:
-#                 product.additionalImg6 = request.FILES["additionalImg6"]
-#
-#             if request.FILES["additionalImg7"]:
-#                 product.additionalImg7 = request.FILES["additionalImg7"]
-#
-#             if request.FILES["additionalImg8"]:
-#                 product.additionalImg8 = request.FILES["additionalImg8"]
-#
-#             if request.FILES["additionalImg9"]:
-#                 product.additionalImg9 = request.FILES["additionalImg9"]
-#
-#             product.save()
-#
-#             return redirect('home-shop')
-#
-#     return render(request, 'shopping/add-product.html', {'form': form})
+
+@csrf_exempt
+def stripe_config(request):
+    if request.method == 'GET':
+        stripe_config = {'publicKey': settings.STRIPE_PUBLISHABLE_KEY}
+        return JsonResponse(stripe_config, safe=False)
+
+
+@csrf_exempt
+def create_checkout_session(request):
+    if request.method == 'GET':
+        domain_url = 'http://127.0.0.1:8000/'
+        stripe.api_key = settings.STRIPE_SECRET_KEY
+        client = Account.objects.filter(userId=request.user.id)
+        cart = CartLine.objects.filter(client__in=client)
+        lineItems = []
+        for cartLine in cart:
+            i = 0
+            lineItems += [
+                {
+                    'name': cartLine.product.name,
+                    'quantity': cartLine.quantity,
+                    'currency': 'eur',
+                    'amount': str(int(cartLine.product.price * 100)),
+                }
+            ]
+
+        print(lineItems)
+        try:
+            # Create new Checkout Session for the order
+            # Other optional params include:
+            # [billing_address_collection] - to display billing address details on the page
+            # [customer] - if you have an existing Stripe Customer ID
+            # [payment_intent_data] - capture the payment later
+            # [customer_email] - prefill the email input in the form
+            # For full details see https://stripe.com/docs/api/checkout/sessions/create
+
+            # ?session_id={CHECKOUT_SESSION_ID} means the redirect will have the session ID set as a query param
+            checkout_session = stripe.checkout.Session.create(
+                success_url=domain_url + 'shop/success?session_id={CHECKOUT_SESSION_ID}',
+                cancel_url=domain_url + 'shop/cancelled/',
+                payment_method_types=['card'],
+                mode='payment',
+                line_items=lineItems
+                # line_items=[
+                #     {
+                #         'name': cartLine.product.nom,
+                #         'quantity': cartLine.quantity,
+                #         'currency': 'eur',
+                #         'amount': str(int(cartLine.product.prixReel * 100)),
+                #     }
+                # ]
+            )
+
+            return JsonResponse({'sessionId': checkout_session['id']})
+        except Exception as e:
+            return JsonResponse({'error': str(e)})
+
+
+class SuccessView(TemplateView):
+    template_name = 'shopping/paySuccess.html'
+
+
+class CancelledView(TemplateView):
+    template_name = 'shopping/payCancelled.html'

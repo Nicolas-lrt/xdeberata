@@ -1,5 +1,8 @@
 {% extends 'base/main.html' %}
 {% block contenu %}
+{% load static %}
+<script src="{% static 'js/stripe.js' %}"></script>
+<script src="https://js.stripe.com/v3/"></script>
 
 <div class="main-content">
     <div class="container">
@@ -46,16 +49,16 @@
                 <td>
                     <strong>{{ total }}€</strong>
                 </td>
-                <td style="text-align: center; font-weight: normal;">
-                    <span class="medium-button"><a href="{% url 'clear-cart' %}">Vider le panier</a></span>
+                <td style="text-align: center;">
+                    <a href="{% url 'clear-cart' %}">Vider le panier</a>
                 </td>
             </tr>
             </tfoot>
         </table>
         <br>
         <br>
-        <span class="medium-button"><a href="#">Valider la commande</a></span>
-        <span class="medium-button"><a href="{% url 'home-shop' %}">Retourner à la boutique</a></span>
+        <button id="btnValider">Procéder au paiement</button>
+        <button><a style="color: white" href="{% url 'home-shop' %}">Retourner à la boutique</a></button>
         {% else %}
         <br>
         <h3>Panier vide !</h3><br>
@@ -65,8 +68,9 @@
 </div>
 <style>
     table, th, td {
-        border: 1px solid black;
+        border: 1.5px solid black;
         padding: 1%;
+        border-collapse: collapse
     }
     table {
         width: 100%;
@@ -74,6 +78,16 @@
     thead, tfoot{
         font-weight: bold;
         font-size: 19px;
+    }
+    button {
+        background-color: #000;
+        color: #fff;
+        font-family: 'Lato', sans-serif;
+        text-transform: uppercase;
+        letter-spacing: .8px;
+        padding: 9px;
+        font-size: 11px;
+        line-height: 10px;
     }
 </style>
 {% endblock %}
