@@ -1,0 +1,68 @@
+{% extends 'base/main.html' %}
+{% block contenu %}
+<div class="main-content">
+    <div class="container">
+        <h1>Mes commandes</h1><br>
+        <h3>Date commande : {{ order.order_date }}</h3><br>
+        <table>
+            <thead>
+            <tr>
+                <th>Produit(s)</th>
+                <th>Quantité</th>
+                <th>Prix</th>
+            </tr>
+            </thead>
+            {% for detail in orderDetail %}
+            <tr>
+                <td style="font-weight: bold">
+                    <a href="{% url 'product-detail' detail.product.id %}">
+                        <img src="{{ detail.product.mainImg.url }}" style="width: 150px">
+                        {{ detail.product.name }}
+                    </a>
+                </td>
+                <td style="text-align: center">
+
+                    {{ detail.qty }}
+
+                </td>
+                <td>
+                    {{ detail.product_unit_price }}€
+                </td>
+
+            </tr>
+            {% endfor %}
+            <tfoot>
+            <tr>
+                <td style="font-size: 22px">
+                    <strong>Total</strong>
+                </td>
+                <td>
+                    <strong>{{ order.article_qty }}  produit(s)</strong>
+                </td>
+                <td>
+                    <strong>{{ order.total }}€</strong>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+        <br>
+        <span class="medium-button"><a href="{% url 'orders-page' %}">Retour vers mes commandes</a></span>
+    </div>
+</div>
+
+<style>
+    table, th, td {
+        border: 0.5px solid black;
+        padding: 0.5%;
+        border-collapse: collapse
+    }
+    table {
+        width: 100%;
+    }
+    thead, tfoot{
+        font-weight: bold;
+        font-size: 19px;
+    }
+</style>
+
+{% endblock %}

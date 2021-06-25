@@ -1,9 +1,13 @@
 {% extends 'base/main.html' %}
 {% block contenu %}
+<script>
+    fetch("/shop/create-order/")
+    .then((result) => { return result.json(); });
+</script>
 
 <div class="main-content">
     <div class="container">
-        <h1>Paiement validé avec succès !</h1>
+        <h1>Paiement validé avec succès !</h1><br>
         <p>
             Retournez à la boutique <a href="{% url 'home-shop' %}">en cliquant ici</a>,
             allez voir vos commandes <a href="#">en cliquant ici</a>.

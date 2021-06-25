@@ -19,7 +19,9 @@ urlpatterns = [
     path('create-checkout-session/', views.create_checkout_session),
     path('success/', views.SuccessView.as_view()),
     path('cancelled/', views.CancelledView.as_view()),
-
+    path('create-order/', views.createOrder),
+    path('orders', views.orderPage, name='orders-page'),
+    path('order-detail/<str:pk>/', views.orderDetails, name='orderDetail'),
 ]
 
 if settings.DEBUG:

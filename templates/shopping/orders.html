@@ -1,0 +1,23 @@
+{% extends 'base/main.html' %}
+{% block contenu %}
+<div class="main-content">
+    <div class="container">
+        <h1>Mes commandes</h1><br>
+        {% for order in orders %}
+        <div class="col-sm-4" style="border: 1px solid black; border-radius: 20px; width: 25%; height: 170px">
+            <br>
+            <h5>Date commande : {{ order.order_date }}</h5><br>
+            <p>Nombres d'articles : {{ order.article_qty }}</p><br>
+            <p>Total : {{ order.total }}€</p><br>
+            <span class="medium-button"><a href="{% url 'orderDetail' order.id %}">Détails</a></span>
+
+        </div>
+        {% empty %}
+        <h2>Aucune commande précédemment effectuée.</h2><br>
+        <p><a href="{% url 'home-shop' %}">Retourner à la boutique en cliquant ici.</a></p>
+        {% endfor %}
+    </div>
+</div>
+
+
+{% endblock %}

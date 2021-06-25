@@ -1,3 +1,5 @@
+import datetime
+
 import stripe
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
@@ -10,7 +12,7 @@ from django.views.generic import CreateView, TemplateView
 from slugify import slugify
 
 from account.decorators import admin_only
-from account.models import Account, CartLine
+from account.models import Account, CartLine, Order, OrderDetail
 from account.views import isAdmin
 from projet import settings
 from shopping.forms import AddProductForm
@@ -188,3 +190,38 @@ class SuccessView(TemplateView):
 
 class CancelledView(TemplateView):
     template_name = 'shopping/payCancelled.html'
+
+
+@login_required
+def createOrder(request):
+    client = Account.objects.get(userId=request.user.id)
+    cart = CartLine.objects.filter(client_id=client.id)
+    if cart:
+        order = Order(client_id=client.id, order_date=datetime.datetime.now())
+        order.save()
+
+        for cartline in cart:
+            order_detail = OrderDetail(order_id=order.id,
+                                       product_id=cartline.product.id,
+                                       qty=cartline.quantity,
+                                       product_unit_price=cartline.product.price
+                                       )
+            order_detail.save()
+        cart.delete()
+    if request.META.get('HTTP_REFERER'):
+        return redirect(request.META.get('HTTP_REFERER'))
+
+
+@login_required
+def orderPage(request):
+    client = Account.objects.get(userId=request.user.id)
+    orders = Order.objects.filter(client_id=client.id)
+
+    return render(request, 'shopping/orders.html', {'orders': orders})
+
+
+@login_required
+def orderDetails(request, pk):
+    order = Order.objects.get(id=pk)
+    orderDetail = OrderDetail.objects.filter(order_id=order.id)
+    return render(request, 'shopping/order-details.html', {'orderDetail': orderDetail, 'order': order})
