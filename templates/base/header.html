@@ -19,12 +19,7 @@
                             <li><a href="{% url 'error404' %}">404 Page</a></li>
                         </ul>
                     </li>
-                    <li><a href="#">Posts</a>
-                        <ul>
-                            <li><a href="#">Normal Post</a></li>
-                            <li><a href="{% url 'post-list' %}">Post list</a></li>
-                        </ul>
-                    </li>
+                    <li><a href="{% url 'post-list' %}">Posts</a></li>
                     <li><a href="{% url 'contact' %}">Contact</a></li>
                     <li><a href="{% url 'home-shop' %}">Boutique</a></li>
                     {% if request.user.is_anonymous %}
@@ -33,6 +28,7 @@
                     {% else %}
                     <li><a href="#">Bienvenu, {{ request.user }}</a>
                         <ul>
+                            <li><a href="#">Mon profil</a></li>
                             <li><a href="{% url 'orders-page' %}">Mes commandes</a></li>
                             <li><a href="{% url 'logout' %}">Déconnexion</a></li>
                         </ul>
@@ -44,6 +40,8 @@
                                 <ul>
                                     <li><a href="{% url 'add-post' %}">Ajouter un post</a></li>
                                     <li><a href="{% url 'add-product' %}">Ajouter un produit</a></li>
+                                    <li><a href="{% url 'order-list' %}">Gérer les commandes</a></li>
+                                    <li><a href="#">Liste utilisteurs</a></li>
                                 </ul>
                             </li>
                        {% endif %}

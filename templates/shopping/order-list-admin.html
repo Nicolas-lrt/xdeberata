@@ -1,0 +1,26 @@
+{% extends 'base/main.html' %}
+{% block contenu %}
+<div class="main-content">
+    <div class="container">
+        <h1>Liste des commandes des clients</h1><br>
+
+        {% for order in orders %}
+        <div class="col-md-4" style="border: 1px solid black;
+                                     border-radius: 20px;
+                                     width: 30%; height: 210px;
+                                     margin-left: 10px;
+                                     margin-bottom: 10px">
+            <br><h4>Date commande : {{ order.order_date }}</h4><br>
+            <h4>Client : {{ order.client }}</h4><br>
+            <h4>Statut : {{ order.get_status_display }}</h4><br>
+            <p>Nombres d'articles : {{ order.article_qty }}</p>
+            <p>Total : {{ order.total }}€</p><br>
+            <span class="medium-button"><a href="{% url 'orderDetail' order.id %}">Détail</a></span><br><br>
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+
+
+{% endblock %}

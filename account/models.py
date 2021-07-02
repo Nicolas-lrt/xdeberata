@@ -40,23 +40,26 @@ class Order(models.Model):
     Une commande est passée par un client et comprend des lignes de commandes ainsi que des adresses.
     """
     client = models.ForeignKey(Account, on_delete=models.CASCADE, verbose_name="Client ayant passé commande")
-    order_date = models.DateField(verbose_name="Date de la commande", auto_now=True)
-    # WAITING = 'W'
-    # PAID = 'P'
-    # SHIPPED = 'S'
-    # CANCELED = 'C'
-    # STATUS = (
-    #     (WAITING, 'En attente de validation'),
-    #     (PAID, 'Payée'),
-    #     (SHIPPED, 'Expédiée'),
-    #     (CANCELED, 'Annulée'),
-    # )
-    # status = models.CharField(max_length=1, choices=STATUS, default=WAITING, verbose_name="Statut de la commande")
+    order_date = models.DateField(verbose_name="Date de la commande")
+    WAITING = 'W'
+    PAID = 'P'
+    SHIPPED = 'S'
+    CANCELED = 'C'
+    STATUS = (
+        (WAITING, 'En attente de validation'),
+        (PAID, 'Payée'),
+        (SHIPPED, 'Expédiée'),
+        (CANCELED, 'Annulée'),
+    )
+    status = models.CharField(max_length=1, choices=STATUS, default=WAITING, verbose_name="Statut de la commande")
     # stripe_charge_id = models.CharField(max_length=30, verbose_name="Identifiant de transaction Stripe", blank=True)
 
     class Meta:
         verbose_name = 'Commande'
         verbose_name_plural = 'Commandes'
+
+    def __str__(self):
+        return 'Commande du client \'' + self.client.user.username + '\' du ' + str(self.order_date)
 
     @property
     def total(self):

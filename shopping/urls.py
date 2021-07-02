@@ -22,6 +22,8 @@ urlpatterns = [
     path('create-order/', views.createOrder),
     path('orders', views.orderPage, name='orders-page'),
     path('order-detail/<str:pk>/', views.orderDetails, name='orderDetail'),
+    path('order-list', views.order_list, name='order-list'),
+    path('change-order-status/<str:order_id>/<str:pk>', views.change_order_state, name='change-order-status')
 ]
 
 if settings.DEBUG:

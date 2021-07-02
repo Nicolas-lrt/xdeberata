@@ -31,7 +31,7 @@
                     <a style="margin-left: 40%" href="{% url 'addToCart' cart_line.product.id 1 %}">+</a>
                 </td>
                 <td>
-                    {{ cart_line.product.price }}€
+                    ${{ cart_line.product.price }}
                 </td>
                 <td style="text-align: center; font-weight: bold">
                     <a href="{% url 'clear-cart-line' cart_line.id %}">Supprimer</a>
@@ -47,7 +47,7 @@
                     <strong>{{ qtyTotal }}  produit(s)</strong>
                 </td>
                 <td>
-                    <strong>{{ total }}€</strong>
+                    <strong>${{ total }}</strong>
                 </td>
                 <td style="text-align: center;">
                     <a href="{% url 'clear-cart' %}">Vider le panier</a>

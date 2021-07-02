@@ -4,6 +4,7 @@
     <div class="container">
         <h1>Mes commandes</h1><br>
         <h3>Date commande : {{ order.order_date }}</h3><br>
+        <h3>Etat commande : {{ order.get_status_display }}</h3><br>
         <table>
             <thead>
             <tr>
@@ -26,7 +27,7 @@
 
                 </td>
                 <td>
-                    {{ detail.product_unit_price }}€
+                    ${{ detail.product_unit_price }}
                 </td>
 
             </tr>
@@ -40,13 +41,22 @@
                     <strong>{{ order.article_qty }}  produit(s)</strong>
                 </td>
                 <td>
-                    <strong>{{ order.total }}€</strong>
+                    <strong>${{ order.total }}</strong>
                 </td>
             </tr>
             </tfoot>
         </table>
         <br>
         <span class="medium-button"><a href="{% url 'orders-page' %}">Retour vers mes commandes</a></span>
+        {% if admin %}
+        <span class="medium-button"><a href="{% url 'order-list' %}">Retour vers commandes des clients</a></span><br>
+        <br>
+        <h4>Changer l'état de la commande :</h4><br>
+        <span class="small-button"><a href="{% url 'change-order-status' order.id 1 %}">En attente</a></span>
+        <span class="small-button"><a href="{% url 'change-order-status' order.id 2 %}">Payée</a></span>
+        <span class="small-button"><a href="{% url 'change-order-status' order.id 3 %}">Expédiée</a></span>
+        <span class="small-button"><a href="{% url 'change-order-status' order.id 4 %}">Annulée</a></span>
+        {% endif %}
     </div>
 </div>
 

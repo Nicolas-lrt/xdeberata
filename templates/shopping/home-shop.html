@@ -57,7 +57,7 @@
                         <div class="normal-post-title">
                             <span class="category"><a href="#">{{ product.tag.nom }}</a></span>
                             <h2><a href="{% url 'product-detail' product.id %}">{{ product.name }}</a></h2>
-                            <time class="post-date">{{ product.price }}$</time>
+                            <time class="post-date">${{ product.price }}</time>
                         </div>
                         <div class="normal-post-content">
                             <p>

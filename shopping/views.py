@@ -197,7 +197,9 @@ def createOrder(request):
     client = Account.objects.get(userId=request.user.id)
     cart = CartLine.objects.filter(client_id=client.id)
     if cart:
-        order = Order(client_id=client.id, order_date=datetime.datetime.now())
+        order = Order(client_id=client.id,
+                      order_date=datetime.datetime.now(),
+                      status=Order.WAITING)
         order.save()
 
         for cartline in cart:
@@ -223,5 +225,31 @@ def orderPage(request):
 @login_required
 def orderDetails(request, pk):
     order = Order.objects.get(id=pk)
+    print(order.status)
     orderDetail = OrderDetail.objects.filter(order_id=order.id)
-    return render(request, 'shopping/order-details.html', {'orderDetail': orderDetail, 'order': order})
+    return render(request, 'shopping/order-details.html', {'orderDetail': orderDetail,
+                                                           'order': order,
+                                                           'admin': isAdmin(request)})
+
+
+@admin_only
+def order_list(request):
+    orders = Order.objects.all()
+    return render(request, 'shopping/order-list-admin.html', {'orders': orders})
+
+
+@admin_only
+def change_order_state(request, order_id, pk):
+    order = Order.objects.get(id=order_id)
+    if pk == 1:
+        order.status = order.WAITING
+    elif pk == 2:
+        order.status = order.PAID
+    elif pk == 3:
+        order.status = order.SHIPPED
+    elif pk == 4:
+        order.status = order.CANCELED
+
+    order.save()
+
+    return redirect(request.META.get('HTTP_REFERER'))
