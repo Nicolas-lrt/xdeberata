@@ -7,26 +7,54 @@
         <br>
         <form method="POST" action="">
             {% csrf_token %}
-            {% for champ in form %}
-                <div class="col-md-3">
-                    {{champ.label}}
-                </div>
-                <div class="col-md-9">
-                    {{champ}}
-                </div>
-                <br>
-                {{champ.errors}}
-                <br>
+
+            <div class="col-md-4">
+                <label>Nom d'utilisateur</label>
+                <ul><li>(Entre 3 et 20 caractères)</li></ul>
+            </div>
+            <div class="col-md-8">
+                <input type="text" name="username" minlength="3" maxlength="20" required>
+            </div><br><br>
+            <div class="col-md-4">
+                <label>Prénom</label>
+                <ul><li>(Entre 3 et 25 caractères / Pas de caractère spécial)</li></ul>
+            </div>
+            <div class="col-md-8">
+                <input type="text" name="first_name" pattern="[a-zA-Z\s]+" minlength="3" maxlength="25" required>
+            </div><br><br>
+            <div class="col-md-4">
+                <label>Nom</label>
+                <ul><li>(Entre 3 et 25 caractères / Pas de caractère spécial)</li></ul>
+            </div>
+            <div class="col-md-8">
+                <input type="text" name="last_name" pattern="[a-zA-Z\s]+" minlength="3" maxlength="25"  required>
+            </div><br><br>
+            <div class="col-md-4">
+                <label>Adresse électronique</label>
+            </div>
+            <div class="col-md-8">
+                <input type="email" name="email" pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" maxlength="40" required>
+            </div><br><br>
+            <div class="col-md-4">
+                <label>Mot de passe</label>
+                <ul><li>(Entre 6 et 20 caractères)</li></ul>
+            </div>
+            <div class="col-md-8">
+                <input type="password" id="pswd" name="password" minlength="6" maxlength="20" required>
+            </div><br><br>
+            <div class="col-md-4">
+                <label>Confirmation du mot de passe</label>
+            </div>
+            <div class="col-md-8">
+                <input type="password" id="pswd-confirm" name="password_confirm" minlength="6" maxlength="20" required>
+            </div><br><br>
+            {% if messages %}
+            {% for message in messages %}
+            <strong>{{ message }}</strong><br>
             {% endfor %}
-            <button style="background-color: #000;
-                       color: #fff;
-                       font-family: 'Lato', sans-serif;
-                       text-transform: uppercase;
-                       letter-spacing: .8px;
-                       padding: 12px;
-                       font-size: 10px;
-                       line-height: 10px;"
-                type="submit">
+            {% endif %}
+            <br>
+            <button type="submit" id="id_btn">
                 S'inscrire
             </button>
         </form>
@@ -34,5 +62,43 @@
     <h4>Déjà inscrit ? <a style="text-decoration: underline" href="{% url 'login' %}">Cliquez ici pour vous connecter</a></h4>
 
 </div>
+
+<style>
+    button {
+        background-color: #000;
+        color: #fff;
+        font-family: 'Lato', sans-serif;
+        text-transform: uppercase;
+        letter-spacing: .8px;
+        padding: 9px;
+        font-size: 11px;
+        line-height: 10px;
+    }
+    input:invalid {
+        border: 2px solid red
+    }
+    strong{
+        font-weight: bold;
+    }
+
+
+</style>
+
+<script>
+    var password = document.getElementById("pswd");
+    var confirm_password = document.getElementById("pswd-confirm");
+
+    function validatePassword(){
+      if(password.value != confirm_password.value) {
+        confirm_password.setCustomValidity("Passwords Don't Match");
+      } else {
+        confirm_password.setCustomValidity('');
+      }
+    }
+
+    password.onchange = validatePassword;
+    confirm_password.onkeyup = validatePassword;
+
+</script>
 
 {% endblock %}

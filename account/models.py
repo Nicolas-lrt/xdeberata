@@ -15,6 +15,13 @@ class Account(models.Model):
     def __str__(self):
         return self.user.username
 
+    def nb_commande(self):
+        orders = Order.objects.filter(client=self)
+        nb = 0
+        for i in orders:
+            nb += 1
+        return nb
+
 
 class CartLine(models.Model):
     """

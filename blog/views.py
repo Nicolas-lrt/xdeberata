@@ -1,3 +1,4 @@
+from django.contrib.auth.models import Group
 from django.shortcuts import render, redirect
 from django.views.generic import UpdateView
 from slugify import slugify
@@ -106,3 +107,38 @@ class UpdatePostView(UpdateView):
     model = Post
     template_name = 'blog/update-post.html'
     fields = ['title', 'main_img', 'bodyPreview', 'body']
+
+
+@admin_only
+def user_list(request):
+    users = Account.objects.all()
+    context = {'users': users}
+    return render(request, 'account/user-list.html', context)
+
+
+@admin_only
+def user_profile(request, pk):
+    user = Account.objects.get(id=pk)
+    admin = 0
+    for group in user.user.groups.all():
+        if group.name == 'admin':
+            admin = 1
+    context = {'user': user, 'admin': admin}
+
+    return render(request, 'account/user-profile.html', context)
+
+
+@admin_only
+def add_admin(request, pk):
+    user = Account.objects.get(id=pk)
+    admin_group = Group.objects.get(name="admin")
+    admin_group.user_set.add(user.user)
+    return redirect(request.META.get('HTTP_REFERER'))
+
+
+@admin_only
+def remove_admin(request, pk):
+    user = Account.objects.get(id=pk)
+    admin_group = Group.objects.get(name="admin")
+    admin_group.user_set.remove(user.user)
+    return redirect(request.META.get('HTTP_REFERER'))

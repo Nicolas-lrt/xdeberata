@@ -1,0 +1,58 @@
+{% extends 'base/main.html' %}
+{% block contenu %}
+
+<div class="main-content">
+    <div class="container">
+        <h1>Modifier mon nom</h1>
+        <p>
+            Si vous souhaitez modifier votre nom de compte client, vous pouvez le faire ci-dessous.
+            N'oubliez pas de cliquer sur le bouton <strong style="font-weight: bold">'Enregistrer'</strong>
+            une fois la modification effectuée.
+        </p>
+        <br>
+        <form method="POST">
+            {% csrf_token %}
+            <label for="nom">Nouveau nom :</label><br>
+            <input type="text"
+                   id="nom"
+                   name="nom"
+                   placeholder="Nouveau nom"
+                   value="{{ request.user.last_name }}"
+                   pattern="[a-zA-Z\s]+"
+                   maxlength="25"
+                   required>
+            <br>
+            <br>
+            <p>Attention :</p>
+            <ul>
+                <li>Pas de caractères spéciaux</li>
+                <li>Pas de chiffres</li>
+                <li>Max 25 caractères</li>
+                <li>Espaces acceptés</li>
+            </ul>
+            <br>
+            <button type="submit">Enregistrer</button>
+        </form>
+
+    </div>
+</div>
+
+<style>
+    button {
+        background-color: #000;
+        color: #fff;
+        font-family: 'Lato', sans-serif;
+        text-transform: uppercase;
+        letter-spacing: .8px;
+        padding: 9px;
+        font-size: 11px;
+        line-height: 10px;
+    }
+    input:invalid {
+        border: 2px solid red
+    }
+
+</style>
+
+
+{% endblock %}

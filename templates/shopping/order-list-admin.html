@@ -7,9 +7,10 @@
         {% for order in orders %}
         <div class="col-md-4" style="border: 1px solid black;
                                      border-radius: 20px;
-                                     width: 30%; height: 210px;
+                                     width: 30%; height: 240px;
                                      margin-left: 10px;
                                      margin-bottom: 10px">
+            <br><h4>ID commande : {{ order.id }}</h4>
             <br><h4>Date commande : {{ order.order_date }}</h4><br>
             <h4>Client : {{ order.client }}</h4><br>
             <h4>Statut : {{ order.get_status_display }}</h4><br>

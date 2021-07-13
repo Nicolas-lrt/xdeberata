@@ -28,7 +28,7 @@
                     {% else %}
                     <li><a href="#">Bienvenu, {{ request.user }}</a>
                         <ul>
-                            <li><a href="#">Mon profil</a></li>
+                            <li><a href="{% url 'my-account' %}">Mon compte</a></li>
                             <li><a href="{% url 'orders-page' %}">Mes commandes</a></li>
                             <li><a href="{% url 'logout' %}">Déconnexion</a></li>
                         </ul>
@@ -41,7 +41,7 @@
                                     <li><a href="{% url 'add-post' %}">Ajouter un post</a></li>
                                     <li><a href="{% url 'add-product' %}">Ajouter un produit</a></li>
                                     <li><a href="{% url 'order-list' %}">Gérer les commandes</a></li>
-                                    <li><a href="#">Liste utilisteurs</a></li>
+                                    <li><a href="{% url 'user-list' %}">Liste utilisteurs</a></li>
                                 </ul>
                             </li>
                        {% endif %}
@@ -66,7 +66,8 @@
     {% load static %}
     <div class="lauren-logo">
         <div class="container">
-            <a href="{% url 'home' %}"><img src="{% static 'images/logo.png' %}" alt="Main Logo"></a>
+            <a href="{% url 'home' %}"><img src="{% static 'images/logo-xdeberata.png' %}" alt="Main Logo"
+                                            style="width: 100px; height: auto"></a>
         </div>
     </div>
 </header><!-- main-header-END -->

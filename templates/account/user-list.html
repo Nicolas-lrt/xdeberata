@@ -1,0 +1,67 @@
+{% extends 'base/main.html' %}
+{% block contenu %}
+<div class="main-content">
+    <div class="container">
+        <h1>Liste de tous les utilisateurs</h1><br>
+        <table>
+            <thead>
+            <tr>
+                <th>Nom d'utilisateur</th>
+                <th>Nom / Prénom</th>
+                <th>Mail</th>
+                <th>Date d'inscription</th>
+                <th>Dernière connexion</th>
+                <th>Admin</th>
+            </tr>
+            </thead>
+            {% for user in users %}
+            <tr>
+                <td>
+                    <a href="{% url 'user-profile' user.user.id %}">{{ user.user }}</a>
+                </td>
+                <td>
+                    {{ user.user.last_name }} {{ user.user.first_name }}
+                </td>
+
+                <td>
+                    {{ user.user.email }}
+                </td>
+                <td>
+                    {{ user.user.date_joined }}
+                </td>
+                <td>
+                    {{ user.user.last_login }}
+                </td>
+                <td>
+                    {% for group in user.user.groups.all %}
+                    {% if group.name == 'admin' %}
+                    Oui
+                    {% endif %}
+                    {% empty %}
+                    Non
+                    {% endfor %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+
+    </div>
+</div>
+
+<style>
+    table, th, td {
+        border: 1.5px solid black;
+        padding: 1%;
+        border-collapse: collapse;
+        text-align: center
+    }
+    table {
+        width: 100%;
+    }
+    thead, tfoot{
+        font-weight: bold;
+        font-size: 17px;
+    }
+</style>
+
+{% endblock %}

@@ -16,6 +16,10 @@ urlpatterns = [
     path('delete-p/<str:pk>', views.delete_post, name='delete-post'),
     path('delete-c/<str:pk>', views.delete_comment, name='delete-comment'),
     path('update-post/<str:pk>', views.UpdatePostView.as_view(), name='update-post'),
+    path('user-list', views.user_list, name='user-list'),
+    path('user-profile/<str:pk>', views.user_profile, name='user-profile'),
+    path('add-admin/<str:pk>', views.add_admin, name='add-admin'),
+    path('remove-admin/<str:pk>', views.remove_admin, name='remove-admin'),
 ]
 
 if settings.DEBUG:

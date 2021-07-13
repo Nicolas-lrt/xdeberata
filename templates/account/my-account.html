@@ -1,0 +1,58 @@
+{% extends 'base/main.html' %}
+{% block contenu %}
+<div class="main-content">
+    <div class="container">
+        <h1>Mon compte</h1><br><br>
+        <div class="col-md-2"></div>
+
+        <div class="col-md-8">
+            <ul class="informations">
+                <li class="info_li">
+                    <h4>Nom d'utilisateur :</h4><br>
+                    <p>{{ request.user }}</p>
+                    <!--                        <span class="large-button modify"><a href="#">Modifier</a></span>-->
+                </li>
+                <li class="info_li">
+                    <h4>Nom :</h4><br>
+                    <p>{{ request.user.last_name }}</p>
+                    <span class="large-button modify"><a href="{% url 'change-last-name' %}">Modifier</a></span>
+                </li>
+                <li class="info_li">
+                    <h4>Prénom :</h4><br>
+                    <p>{{ request.user.first_name }}</p>
+                    <span class="large-button modify"><a href="{% url 'change-first-name' %}">Modifier</a></span>
+                </li>
+                <li class="info_li">
+                    <h4>Adresse Mail :</h4><br>
+                    <p>{{ request.user.email }}</p>
+                    <span class="large-button modify"><a href="{% url 'change-email' %}">Modifier</a></span>
+                </li>
+                <li class="info_li">
+                    <h4>Mot de passe :</h4><br>
+                    <p>********</p>
+                    <span class="large-button modify"><a href="{% url 'change-password' %}">Modifier</a></span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-md-2"></div>
+
+
+    </div>
+</div>
+
+
+<style>
+    .modify{
+        margin-left: 85%;
+    }
+    .info_li{
+        padding: 4%;
+        border: 3px solid;
+        border-radius: 4px;
+        margin-bottom: 3px
+    }
+
+</style>
+
+{% endblock %}

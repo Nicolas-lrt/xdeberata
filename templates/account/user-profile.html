@@ -1,0 +1,75 @@
+{% extends 'base/main.html' %}
+{% block contenu %}
+
+<div class="main-content">
+    <div class="container">
+        <h1>Profil de l'utilisateur '{{ user.user.username }}'</h1><br>
+
+        <div class="col-md-2"></div>
+
+        <div class="col-md-8">
+            <ul class="informations">
+                <li class="info_li">
+                    <h4>Nom d'utilisateur :</h4><br>
+                    <p>{{ user.user }}</p>
+                    <!--                        <span class="large-button modify"><a href="#">Modifier</a></span>-->
+                </li>
+                <li class="info_li">
+                    <h4>Nom :</h4><br>
+                    <p>{{ user.user.last_name }}</p>
+<!--                    <span class="large-button modify"><a href="{% url 'change-last-name' %}">Modifier</a></span>-->
+                </li>
+                <li class="info_li">
+                    <h4>Prénom :</h4><br>
+                    <p>{{ user.user.first_name }}</p>
+<!--                    <span class="large-button modify"><a href="{% url 'change-first-name' %}">Modifier</a></span>-->
+                </li>
+                <li class="info_li">
+                    <h4>Adresse Mail :</h4><br>
+                    <p>{{ user.user.email }}</p>
+<!--                    <span class="large-button modify"><a href="{% url 'change-email' %}">Modifier</a></span>-->
+                </li>
+                <li class="info_li">
+                    <h4>Date d'inscription</h4><br>
+                    <p>{{ user.user.date_joined }}</p>
+
+                </li>
+                <li class="info_li">
+                    <h4>Dernière connexion</h4><br>
+                    <p>{{ user.user.last_login }}</p>
+                </li>
+                <li class="info_li">
+                    <h4>Nombre de commandes</h4><br>
+                    {{ user.nb_commande }}
+                </li>
+                <li class="info_li">
+                    <h4>Admin</h4><br>
+                    {% if admin %}
+                    <p>Oui</p>
+                    <span class="large-button modify"><a href="{% url 'remove-admin' user.user.id %}">Retirer Admin</a></span>
+                    {% else %}
+                    <p>Non</p>
+                    <span class="large-button modify"><a href="{% url 'add-admin' user.user.id %}">Rendre Admin</a></span>
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-md-2"></div>
+
+    </div>
+</div>
+
+<style>
+    .info_li{
+        padding: 4%;
+        border: 3px solid;
+        border-radius: 4px;
+        margin-bottom: 3px
+    }
+    .modify{
+        margin-left: 75%;
+    }
+</style>
+
+{% endblock %}
