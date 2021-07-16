@@ -1,4 +1,5 @@
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, User
+from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.views.generic import UpdateView
 from slugify import slugify
@@ -114,6 +115,20 @@ def user_list(request):
     users = Account.objects.all()
     context = {'users': users}
     return render(request, 'account/user-list.html', context)
+
+
+@admin_only
+def user_list_search(request):
+    if request.method == "POST":
+        search = request.POST.get('search')
+        users = User.objects.filter(Q(username__icontains=search) |
+                                    Q(email__icontains=search) |
+                                    Q(last_name__icontains=search) |
+                                    Q(first_name__icontains=search))
+        context = {'users': users, 'search': search}
+        return render(request, 'account/user-list-search.html', context)
+    else:
+        return render(request, 'account/user-list-search.html', {})
 
 
 @admin_only

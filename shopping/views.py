@@ -2,6 +2,8 @@ import datetime
 
 import stripe
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 
@@ -236,6 +238,30 @@ def orderDetails(request, pk):
 def order_list(request):
     orders = Order.objects.all()
     return render(request, 'shopping/order-list-admin.html', {'orders': orders})
+
+
+@admin_only
+def order_list_search(request):
+    if request.method == "POST":
+        search = request.POST.get('search')
+        users = User.objects.filter(Q(username__icontains=search))
+        accounts = Account.objects.filter(user__in=users)
+        orders = Order.objects.filter(Q(client__in=accounts))
+        context = {'search': search, 'orders': orders}
+        return render(request, 'shopping/order-list-admin-search.html', context)
+    else:
+        return render(request, 'shopping/order-list-admin-search.html', {})
+
+
+@admin_only
+def order_list_search_id(request):
+    if request.method == "POST":
+        search = request.POST.get('search')
+        orders = Order.objects.filter(Q(id=search))
+        context = {'search': search, 'orders': orders}
+        return render(request, 'shopping/order-list-admin-search-id.html', context)
+    else:
+        return render(request, 'shopping/order-list-admin-search-id.html', {})
 
 
 @admin_only

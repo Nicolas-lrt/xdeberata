@@ -2,7 +2,8 @@
 {% block contenu %}
 <div class="main-content">
     <div class="container">
-        <h1>Liste des commandes des clients</h1><br>
+        {% if search %}
+        <h1>Liste des commandes trouvées avec '{{ search }}'</h1><br>
         <form method="POST" action="{% url 'order-list-search' %}">
             {% csrf_token %}
             <label>Chercher une commande par client : </label>
@@ -16,6 +17,8 @@
             <input type="text" placeholder="id" name="search">
             <button type="submit"><i class="fa fa-search"></i></button>
         </form>
+        <br>
+        <a href="{% url 'order-list' %}"><h4>Retourner à la liste des commandes en cliquant ici</h4></a>
         <br>
         {% for order in orders %}
         <div class="col-md-4" style="border: 1px solid black;
@@ -31,8 +34,28 @@
             <p>Total : {{ order.total }}€</p><br>
             <span class="medium-button"><a href="{% url 'orderDetail' order.id %}">Détail</a></span><br><br>
         </div>
+        {% empty %}
+        <h2>Aucun résultat !</h2><br>
         {% endfor %}
+        {% else %}
+        <h1>Vous n'avez pas effectué de recherche... Vous pouvez réessayer ci-dessous</h1><br>
+        <form method="POST" action="{% url 'order-list-search' %}">
+            {% csrf_token %}
+            <label>Chercher une commande par client : </label>
+            <input type="text" placeholder="client" name="search">
+            <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+        <br>
+        <form method="POST" action="{% url 'order-list-search-id' %}">
+            {% csrf_token %}
+            <label>Chercher une commande par id : </label>
+            <input type="text" placeholder="id" name="search">
+            <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+        <br>
+        <a href="{% url 'order-list' %}"><h2>Retourner à la liste des commandes en cliquant ici</h2></a>
 
+        {% endif %}
     </div>
 </div>
 

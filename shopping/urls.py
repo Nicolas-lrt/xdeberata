@@ -23,6 +23,8 @@ urlpatterns = [
     path('orders', views.orderPage, name='orders-page'),
     path('order-detail/<str:pk>/', views.orderDetails, name='orderDetail'),
     path('order-list', views.order_list, name='order-list'),
+    path('order-list-search', views.order_list_search, name='order-list-search'),
+    path('order-list-search-id', views.order_list_search_id, name='order-list-search-id'),
     path('change-order-status/<str:order_id>/<str:pk>', views.change_order_state, name='change-order-status')
 ]
 
