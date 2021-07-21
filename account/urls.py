@@ -11,4 +11,5 @@ urlpatterns = [
     path('change-first-name', views.change_first_name, name='change-first-name'),
     path('change-email', views.change_email, name='change-email'),
     path('change-password', views.change_password, name='change-password'),
+    path('change-address', views.change_address, name='change-address'),
 ]

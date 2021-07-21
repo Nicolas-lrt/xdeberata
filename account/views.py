@@ -4,11 +4,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
-
 # Create your views here.
 from account.decorators import unauthenticated_user, admin_only
 from account.forms import CreateAccount
-from account.models import Account
+from account.models import Account, Address
 
 
 def isAdmin(request):
@@ -71,7 +70,13 @@ def loginPage(request):
 
 @login_required
 def my_account(request):
-    return render(request, 'account/my-account.html')
+    adresse = 0
+    address = Address.objects.filter(client__id=request.user.id)
+    for a in address:
+        adresse = a
+
+    context = {'address': adresse}
+    return render(request, 'account/my-account.html', context)
 
 
 @login_required
@@ -117,3 +122,47 @@ def change_password(request):
     return render(request, 'account/change-password.html')
 
 
+@login_required
+def change_address(request):
+    client = Account.objects.get(userId=request.user.id)
+    adresse = 0
+    gender = 1
+    address = Address.objects.filter(client__id=request.user.id)
+    for a in address:
+        adresse = a
+        gender = adresse.gender
+        print(gender)
+
+    if request.method == 'POST':
+        if Address.objects.filter(client=client).exists():
+            address = Address.objects.get(client=client)
+            address.gender = request.POST.get('gender')
+            address.first_name = request.POST.get('first_name')
+            address.last_name = request.POST.get('last_name')
+            address.company = request.POST.get('company')
+            address.address = request.POST.get('address')
+            address.additional_address = request.POST.get('additional_address')
+            address.postcode = request.POST.get('postcode')
+            address.city = request.POST.get('city')
+            address.phone = request.POST.get('phone')
+            address.mobilephone = request.POST.get('mobilephone')
+            address.workphone = request.POST.get('workphone')
+            address.save()
+            return redirect('my-account')
+        else:
+            address = Address(client=client,
+                              gender=request.POST.get('gender'),
+                              first_name=request.POST.get('first_name'),
+                              last_name=request.POST.get('last_name'),
+                              company=request.POST.get('company'),
+                              address=request.POST.get('address'),
+                              additional_address=request.POST.get('additional_address'),
+                              postcode=request.POST.get('postcode'),
+                              city=request.POST.get('city'),
+                              phone=request.POST.get('phone'),
+                              mobilephone=request.POST.get('mobilephone'),
+                              workphone=request.POST.get('workphone'))
+            address.save()
+
+    context = {'address': adresse, 'gender': gender}
+    return render(request, 'account/change-address.html', context)

@@ -1,0 +1,124 @@
+{% extends 'base/main.html' %}
+{% block contenu %}
+
+<div class="main-content">
+    <div class="container">
+        <h1>Modifier mon adresse de livraison</h1>
+        <p>
+            Si vous souhaitez modifier votre adresse de compte client, vous pouvez le faire ci-dessous. Il s'agit de
+            l'adresse pour la livraison de vos commandes, ainsi que pour la facturation. Vous pourrez choisir une
+            adresse diférente pour la facturation lors de votre commande si souhaité.
+            <br>
+            N'oubliez pas de cliquer sur le bouton <strong style="font-weight: bold">'Enregistrer'</strong>
+            une fois la modification effectuée.
+        </p>
+        <br>
+        <h4>Nouvelle adresse :</h4><br>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="col-md-4">
+                <label>Nom *</label>
+                <ul><li>(Entre 3 et 25 caractères / Pas de caractère spécial)</li></ul>
+            </div>
+            <div class="col-md-8">
+                <input type="text" name="last_name" pattern="[a-zA-Z\s]+" minlength="3" maxlength="25" value="{{ address.last_name }}" required>
+            </div><br><br><br>
+            <div class="col-md-4">
+                <label>Prénom *</label>
+                <ul><li>(Entre 3 et 25 caractères / Pas de caractère spécial)</li></ul>
+            </div>
+            <div class="col-md-8">
+                <input type="text" name="first_name" pattern="[a-zA-Z\s]+" minlength="3" maxlength="25" value="{{ address.first_name }}" required>
+            </div><br><br><br>
+            <div class="col-md-4">
+                <label>Genre *</label>
+            </div>
+            <div class="col-md-8">
+                <select name="gender" required>
+                    <option value="" disabled {% if gender %} selected {% endif %}>Choisir un genre</option>
+                    <option value="MR" {% if gender == 'MR' %} selected {% endif %}>Homme</option>
+                    <option value="MRS" {% if gender == 'MRS' %} selected {% endif %}>Femme</option>
+                </select>
+            </div><br><br>
+            <div class="col-md-4">
+                <label>Compagnie</label>
+                <ul><li>(Entre 1 et 50 caractères / Pas de caractère spécial)</li></ul>
+            </div>
+            <div class="col-md-8">
+                <input type="text" name="company" pattern="[a-zA-Z\s]+" minlength="1" maxlength="50" value="{{ address.company }}">
+            </div><br><br><br>
+            <div class="col-md-4">
+                <label>Adresse *</label>
+                <ul><li>(Numéro et nom de la rue)</li></ul>
+            </div>
+            <div class="col-md-8">
+                <input type="text" name="address" pattern="^[#.0-9a-zA-Z\s,-]+$" minlength="5" maxlength="50" value="{{ address.address }}" required>
+            </div><br><br><br>
+            <div class="col-md-4">
+                <label>Complément d'adresse</label>
+                <ul><li>(Numéro appartement / Nom immeuble)</li></ul>
+            </div>
+            <div class="col-md-8">
+                <input type="text" name="additional_address" pattern="[a-zA-Z\s0-9]+" minlength="5" maxlength="50" value="{{ address.additional_address }}">
+            </div><br><br><br>
+            <div class="col-md-4">
+                <label>Code postale *</label>
+            </div>
+            <div class="col-md-8">
+                <input type="text" name="postcode" pattern="[0-9]+" minlength="1" maxlength="10" value="{{ address.postcode }}" required>
+            </div><br><br><br>
+            <div class="col-md-4">
+                <label>Ville *</label>
+                <ul><li>(Entre 1 et 50 caractères / Pas de caractère spécial)</li></ul>
+            </div>
+            <div class="col-md-8">
+                <input type="text" name="city" pattern="[a-zA-Z\s]+" minlength="1" maxlength="50" value="{{ address.city }}" required>
+            </div><br><br><br>
+            <div class="col-md-4">
+                <label>Téléphone *</label>
+            </div>
+            <div class="col-md-8">
+                <input type="text" name="phone" pattern="[0-9]+" minlength="3" maxlength="10" value="{{ address.phone }}" required>
+            </div><br><br><br>
+            <div class="col-md-4">
+                <label>Téléphone personnel</label>
+            </div>
+            <div class="col-md-8">
+                <input type="text" name="mobilephone" pattern="[0-9]+" minlength="3" maxlength="10" value="{{ address.mobilephone }}">
+            </div><br><br><br>
+            <div class="col-md-4">
+                <label>Téléphone professionel</label>
+            </div>
+            <div class="col-md-8">
+                <input type="text" name="workphone" pattern="[0-9]+" minlength="3" maxlength="10" value="{{ address.workphone }}">
+            </div><br><br><br>
+
+            <br>
+            <span class="medium-button"><a href="{% url 'my-account' %}">Retour</a></span>
+            <button type="submit">Enregistrer</button>
+        </form>
+
+    </div>
+</div>
+
+<style>
+    button {
+        background-color: #000;
+        color: #fff;
+        font-family: 'Lato', sans-serif;
+        text-transform: uppercase;
+        letter-spacing: .8px;
+        padding: 9px;
+        font-size: 11px;
+        line-height: 10px;
+    }
+    input:invalid {
+        border: 2px solid red
+    }
+    input{
+        width: 300px;
+    }
+</style>
+
+
+{% endblock %}

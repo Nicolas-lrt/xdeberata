@@ -10,10 +10,10 @@
 
             <div class="col-md-4">
                 <label>Nom d'utilisateur</label>
-                <ul><li>(Entre 3 et 20 caractères)</li></ul>
+                <ul><li>(Entre 3 et 20 caractères / Pas de caractère spécial)</li></ul>
             </div>
             <div class="col-md-8">
-                <input type="text" name="username" minlength="3" maxlength="20" required>
+                <input type="text" name="username" minlength="3" maxlength="20" pattern="[A-Za-z0-9]+" required>
             </div><br><br>
             <div class="col-md-4">
                 <label>Prénom</label>

@@ -8,6 +8,20 @@ from shopping.models import Product
 class Account(models.Model):
     user = models.ForeignKey(User, verbose_name='Associated user', on_delete=models.CASCADE)
     userId = models.IntegerField(null=True)
+    default_shipping_address = models.ForeignKey("Address",
+                                                 related_name="default_shipping_address",
+                                                 null=True,
+                                                 verbose_name="Adresse de livraison par défaut",
+                                                 on_delete=models.CASCADE
+                                                 )
+    default_invoicing_address = models.ForeignKey("Address",
+                                                  related_name="default_invoicing_address",
+                                                  null=True,
+                                                  verbose_name="Adresse de facturation par défaut",
+                                                  on_delete=models.CASCADE
+                                                  )
+    country = models.CharField(max_length=255, null=True, blank=True)
+    state = models.CharField(max_length=255, null=True, blank=True)
 
     def __unicode__(self):
         return self.user.username
@@ -21,6 +35,40 @@ class Account(models.Model):
         for i in orders:
             nb += 1
         return nb
+
+
+class Address(models.Model):
+    """
+    Une adresse est liée à un client et pourra être utilisée pour la livraison ou la facturation d'une commande.
+    """
+    client = models.ForeignKey(Account, verbose_name='Associated account', on_delete=models.CASCADE)
+    MISTER = 'MR'
+    MISSES = 'MRS'
+    GENDER = (
+        (MISTER, 'Monsieur'),
+        (MISSES, 'Madame'),
+    )
+    gender = models.CharField(max_length=4, choices=GENDER, default=MISTER, verbose_name="Civilité")
+    first_name = models.CharField(max_length=50, verbose_name="Prénom")
+    last_name = models.CharField(max_length=50, verbose_name="Nom")
+    company = models.CharField(max_length=50, blank=True, verbose_name="Société")
+    address = models.CharField(max_length=255, verbose_name="Adresse")
+    additional_address = models.CharField(max_length=255, blank=True, verbose_name="Complément d'adresse")
+    postcode = models.CharField(max_length=10, verbose_name="Code postal")
+    city = models.CharField(max_length=50, verbose_name="Ville")
+    phone = models.CharField(max_length=10, verbose_name="Téléphone")
+    mobilephone = models.CharField(max_length=10, blank=True, verbose_name="Téléphone portable")
+    workphone = models.CharField(max_length=10, blank=True, verbose_name="Téléphone travail")
+
+    class Meta:
+        verbose_name = 'Adresse'
+        verbose_name_plural = 'Adresses'
+
+    def __str__(self):
+        return 'Adresse du client \'' + self.client.user.username + '\''
+
+    def __unicode__(self):
+        return self.first_name + " " + self.last_name + " (" + self.address + ", " + self.postcode + " " + self.city + ")"
 
 
 class CartLine(models.Model):

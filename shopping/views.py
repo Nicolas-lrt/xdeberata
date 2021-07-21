@@ -268,13 +268,13 @@ def order_list_search_id(request):
 def change_order_state(request, order_id, pk):
     order = Order.objects.get(id=order_id)
     if pk == 1:
-        order.status = order.WAITING
+        order.status = 'W'
     elif pk == 2:
-        order.status = order.PAID
+        order.status = 'P'
     elif pk == 3:
-        order.status = order.SHIPPED
+        order.status = 'S'
     elif pk == 4:
-        order.status = order.CANCELED
+        order.status = 'C'
 
     order.save()
 
