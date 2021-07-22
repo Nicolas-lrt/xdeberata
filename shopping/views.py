@@ -84,13 +84,50 @@ def clearCart(request):
 
 @login_required(login_url='login')
 def cartPage(request):
-    total = 0
+    total_ht = 0
     client = Account.objects.filter(userId=request.user.id)
     cart = CartLine.objects.filter(client__in=client)
+    for a in client:
+        client = a
     for cart_line in cart:
-        total += cart_line.total()
+        total_ht += cart_line.total_ht()
+    if client.country == 'Canada':
+        state = client.state
+        if state == 'Alberta' or \
+                state == 'Colombie-Britanique' or \
+                state == 'Manitoba' or \
+                state == 'Nanavut' or \
+                state == 'Saskatchewan' or \
+                state == 'Territoire-Nord-Ouest' or \
+                state == 'Yukon':
+            taxe = 5
+            tot_taxe = total_ht * (5 / 100)
+            total = total_ht + tot_taxe
+        elif state == 'Ile-du-Prince-Edouard' or \
+                state == 'Nouveau-Brunswick' or \
+                state == 'Nouvelle-Ecosse' or \
+                state == 'Terre-Neuve-et-Labrador':
+            taxe = 15
+            tot_taxe = total_ht * (15 / 100)
+            total = total_ht + tot_taxe
+        elif state == 'Ontario':
+            taxe = 13
+            tot_taxe = total_ht * (13 / 100)
+            total = total_ht + tot_taxe
+        elif state == 'Quebec':
+            taxe = 14.975
+            tot_taxe = total_ht * (14.975 / 100)
+            total = total_ht + tot_taxe
 
-    return render(request, 'shopping/cart-page.html', {'cart': cart, 'total': total, 'qtyTotal': getCartQty(request)})
+    context = {'cart': cart,
+               'client': client,
+               'total_ht': total_ht,
+               'taxe': taxe,
+               'tot_taxe': tot_taxe,
+               'total': total,
+               'qtyTotal': getCartQty(request)
+               }
+    return render(request, 'shopping/cart-page.html', context)
 
 
 @admin_only

@@ -11,17 +11,19 @@ class Account(models.Model):
     default_shipping_address = models.ForeignKey("Address",
                                                  related_name="default_shipping_address",
                                                  null=True,
+                                                 blank=True,
                                                  verbose_name="Adresse de livraison par défaut",
                                                  on_delete=models.CASCADE
                                                  )
     default_invoicing_address = models.ForeignKey("Address",
                                                   related_name="default_invoicing_address",
                                                   null=True,
+                                                  blank=True,
                                                   verbose_name="Adresse de facturation par défaut",
                                                   on_delete=models.CASCADE
                                                   )
-    country = models.CharField(max_length=255, null=True, blank=True)
-    state = models.CharField(max_length=255, null=True, blank=True)
+    country = models.CharField(max_length=255, default='Canada')
+    state = models.CharField(max_length=255, default='Quebec')
 
     def __unicode__(self):
         return self.user.username
@@ -83,7 +85,7 @@ class CartLine(models.Model):
         verbose_name = 'User cart line'
         verbose_name_plural = 'User cart lines'
 
-    def total(self):
+    def total_ht(self):
         return round(self.product.price * float(self.quantity), 2)
 
     def __str__(self):

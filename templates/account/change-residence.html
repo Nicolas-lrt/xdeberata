@@ -1,0 +1,56 @@
+{% extends 'base/main.html' %}
+{% block contenu %}
+
+<div class="main-content">
+    <div class="container">
+        <h1>Modifier mon lieu de résidence</h1>
+        <p>
+            Si vous souhaitez modifier votre lieu de résidence de compte client, vous pouvez le faire ci-dessous. Cela
+            permettra d'ajuster les taxes en fonctions de votre pays/province.
+            N'oubliez pas de cliquer sur le bouton <strong style="font-weight: bold">'Enregistrer'</strong>
+            une fois la modification effectuée. Vous recevrez également un mail de confirmation sur votre
+            nouvelle adresse.
+        </p>
+        <br>
+        <form method="POST">
+            {% csrf_token %}
+            <h4>Nouveau lieu de résidence :</h4><br>
+            <select id="country" name="country" required>
+                <option value="" disabled selected>Choisir un pays</option>
+                <option value="Canada" >Canada</option>
+                <option value="USA" >Etats-Unis</option>
+                <option value="France" >France</option>
+            </select>
+            <select id="state" name="state" required>
+                <option value="" disabled selected>Choisir une province</option>
+            </select>
+            <br>
+            <br>
+            <span class="medium-button"><a href="{% url 'my-account' %}">Retour</a></span>
+            <button type="submit">Enregistrer</button>
+        </form>
+
+    </div>
+</div>
+
+{% load static %}
+<script src="{% static 'js/residence.js' %}"></script>
+
+<style>
+    button {
+        background-color: #000;
+        color: #fff;
+        font-family: 'Lato', sans-serif;
+        text-transform: uppercase;
+        letter-spacing: .8px;
+        padding: 9px;
+        font-size: 11px;
+        line-height: 10px;
+    }
+    input:invalid {
+        border: 2px solid red
+    }
+
+</style>
+
+{% endblock %}

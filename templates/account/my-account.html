@@ -37,6 +37,16 @@
                     <span class="large-button modify"><a href="{% url 'change-address' %}">Modifier</a></span>
                 </li>
                 <li class="info_li">
+                    <h4>Lieu de résidence :</h4><br>
+                    {% if account.country and account.state %}
+                    <p>{{ account.state }}, {{ account.country }}</p>
+                    {% else %}
+                    <p>Pas de lieu de résidence enregistré</p>
+                    {% endif %}
+                    <span class="large-button modify"><a href="{% url 'change-residence' %}">Modifier</a></span>
+
+                </li>
+                <li class="info_li">
                     <h4>Mot de passe :</h4><br>
                     <p>********</p>
                     <span class="large-button modify"><a href="{% url 'change-password' %}">Modifier</a></span>

@@ -43,7 +43,9 @@ def sign_in(request):
                         last_name=request.POST.get('last_name')
                         )
             user.save()
-            account = Account(user_id=user.id)
+            account = Account(user_id=user.id,
+                              country=request.POST.get('country'),
+                              state=request.POST.get('state'))
             account.userId = user.id
             account.save()
             login(request, user)
@@ -70,12 +72,13 @@ def loginPage(request):
 
 @login_required
 def my_account(request):
+    client = Account.objects.get(userId=request.user.id)
     adresse = 0
     address = Address.objects.filter(client__id=request.user.id)
     for a in address:
         adresse = a
 
-    context = {'address': adresse}
+    context = {'address': adresse, 'account': client}
     return render(request, 'account/my-account.html', context)
 
 
@@ -123,6 +126,18 @@ def change_password(request):
 
 
 @login_required
+def change_residence(request):
+    client = Account.objects.get(userId=request.user.id)
+    context = {'account': client}
+    if request.method == 'POST':
+        client.country = request.POST.get('country')
+        client.state = request.POST.get('state')
+        client.save()
+        return redirect('my-account')
+    return render(request, 'account/change-residence.html', context)
+
+
+@login_required
 def change_address(request):
     client = Account.objects.get(userId=request.user.id)
     adresse = 0
@@ -148,6 +163,8 @@ def change_address(request):
             address.mobilephone = request.POST.get('mobilephone')
             address.workphone = request.POST.get('workphone')
             address.save()
+            client.default_shipping_address = address
+            client.save()
             return redirect('my-account')
         else:
             address = Address(client=client,
@@ -163,6 +180,8 @@ def change_address(request):
                               mobilephone=request.POST.get('mobilephone'),
                               workphone=request.POST.get('workphone'))
             address.save()
+            client.default_shipping_address = address
+            client.save()
 
     context = {'address': adresse, 'gender': gender}
     return render(request, 'account/change-address.html', context)

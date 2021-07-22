@@ -30,7 +30,7 @@
                     {{cart_line.quantity}}
                     <a style="margin-left: 40%" href="{% url 'addToCart' cart_line.product.id 1 %}">+</a>
                 </td>
-                <td>
+                <td style="text-align: center">
                     ${{ cart_line.product.price }}
                 </td>
                 <td style="text-align: center; font-weight: bold">
@@ -40,14 +40,38 @@
             {% endfor %}
             <tfoot>
             <tr>
+                <td style="font-size: 21px">
+                    Total (HT)
+                </td>
+                <td style="text-align: center">
+                    {{ qtyTotal }}  produit(s)
+                </td>
+                <td style="text-align: center">
+                    ${{ total_ht }}
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+                    Taxes
+                </td>
+                <td style="text-align: center">
+                    {{ taxe }}% ({{ client.state }})
+                </td>
+                <td style="text-align: center">
+                    ${{ tot_taxe }}
+                </td>
+
+            </tr>
+            <tr>
                 <td style="font-size: 22px">
-                    <strong>Total</strong>
+                    Total (TTC)
                 </td>
-                <td>
-                    <strong>{{ qtyTotal }}  produit(s)</strong>
+                <td style="text-align: center">
+                    {{ qtyTotal }}  produit(s)
                 </td>
-                <td>
-                    <strong>${{ total }}</strong>
+                <td style="text-align: center">
+                    ${{ total }}
                 </td>
                 <td style="text-align: center;">
                     <a href="{% url 'clear-cart' %}">Vider le panier</a>
@@ -70,7 +94,8 @@
     table, th, td {
         border: 1.5px solid black;
         padding: 1%;
-        border-collapse: collapse
+        border-collapse: collapse;
+
     }
     table {
         width: 100%;

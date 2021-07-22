@@ -12,4 +12,5 @@ urlpatterns = [
     path('change-email', views.change_email, name='change-email'),
     path('change-password', views.change_password, name='change-password'),
     path('change-address', views.change_address, name='change-address'),
+    path('change-residence', views.change_residence, name='change-residence'),
 ]
