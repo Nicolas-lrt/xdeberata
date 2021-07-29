@@ -67,7 +67,14 @@ class Address(models.Model):
         verbose_name_plural = 'Adresses'
 
     def __str__(self):
-        return 'Adresse du client \'' + self.client.user.username + '\''
+        address = Address.objects.filter(client__id=self.client.id)
+        nb = 0
+        count = 1
+        for a in address:
+            if self.id == a.id:
+                nb = count
+            count += 1
+        return 'Adresse ' + str(nb) + ' du client \'' + self.client.user.username + '\''
 
     def __unicode__(self):
         return self.first_name + " " + self.last_name + " (" + self.address + ", " + self.postcode + " " + self.city + ")"
@@ -97,6 +104,18 @@ class Order(models.Model):
     Une commande est passée par un client et comprend des lignes de commandes ainsi que des adresses.
     """
     client = models.ForeignKey(Account, on_delete=models.CASCADE, verbose_name="Client ayant passé commande")
+    shipping_address = models.ForeignKey(Address,
+                                         verbose_name="Adresse de livraison",
+                                         related_name="order_shipping_address",
+                                         null=True,
+                                         on_delete=models.CASCADE
+                                         )
+    invoicing_address = models.ForeignKey(Address,
+                                          verbose_name="Adresse de facturation",
+                                          related_name="order_invoicing_address",
+                                          null=True,
+                                          on_delete=models.CASCADE
+                                          )
     order_date = models.DateField(verbose_name="Date de la commande")
     WAITING = 'W'
     PAID = 'P'

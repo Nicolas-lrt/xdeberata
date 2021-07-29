@@ -3,17 +3,8 @@
 
 <div class="main-content">
     <div class="container">
-        <h1>Modifier mon adresse de livraison</h1>
-        <p>
-            Si vous souhaitez modifier votre adresse de compte client, vous pouvez le faire ci-dessous. Il s'agit de
-            l'adresse pour la livraison de vos commandes, ainsi que pour la facturation. Vous pourrez choisir une
-            adresse diférente pour la facturation lors de votre commande si souhaité.
-            <br>
-            N'oubliez pas de cliquer sur le bouton <strong style="font-weight: bold">'Enregistrer'</strong>
-            une fois la modification effectuée.
-        </p>
-        <br>
-        <h4>Nouvelle adresse :</h4><br>
+        <h1>Choisir une addresse de livraison</h1><br>
+
         <form method="POST">
             {% csrf_token %}
             <div class="col-md-4">
@@ -92,14 +83,33 @@
             <div class="col-md-8">
                 <input type="text" name="workphone" pattern="[0-9]+" minlength="3" maxlength="10" value="{{ address.workphone }}">
             </div><br><br><br>
-
+            {% if client.default_invoicing_address != None %}
+            <div class="col-md-4">
+                <label>Utiliser cette adresse pour la facture</label>
+                <ul>
+                    <li>
+                        (Si vous ne cohez pas, l'adresse de facturation précédemment enregistrée sera utilisée.)
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-8">
+                <input type="checkbox" name="same-adr" style="width: 15px">
+            </div><br><br><br>
+            {% else %}
+            <p>
+                <strong style="font-weight: bold">/!\</strong> Par défaut, l'adresse de facturation est la même que
+                l'adresse de livraison. Si vous souhaiter en utiliser une autre, veuillez cliquer sur le bouton
+                <strong style="font-weight: bold">'Facturation différente'</strong> ci-dessous.
+            </p>
+            {% endif %}
             <br>
-            <span class="medium-button"><a href="{% url 'my-account' %}">Retour</a></span>
             <button type="submit">Enregistrer</button>
+            <span class="medium-button"><a href="{% url 'choose-invoice' %}">Adresse de facturation</a></span>
+            <span class="medium-button"><a href="{% url 'cart-page' %}">Retour</a></span>
         </form>
-
     </div>
 </div>
+
 
 <style>
     button {
@@ -119,6 +129,5 @@
         width: 300px;
     }
 </style>
-
 
 {% endblock %}

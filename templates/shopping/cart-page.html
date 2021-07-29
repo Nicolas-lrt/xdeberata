@@ -1,8 +1,5 @@
 {% extends 'base/main.html' %}
 {% block contenu %}
-{% load static %}
-<script src="{% static 'js/stripe.js' %}"></script>
-<script src="https://js.stripe.com/v3/"></script>
 
 <div class="main-content">
     <div class="container">
@@ -81,7 +78,7 @@
         </table>
         <br>
         <br>
-        <button id="btnValider">Procéder au paiement</button>
+        <button><a style="color: white" href="{% url 'choose-address' %}">Choisir livraison</a></button>
         <button><a style="color: white" href="{% url 'home-shop' %}">Retourner à la boutique</a></button>
         {% else %}
         <br>

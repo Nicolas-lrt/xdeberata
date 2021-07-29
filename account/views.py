@@ -140,17 +140,16 @@ def change_residence(request):
 @login_required
 def change_address(request):
     client = Account.objects.get(userId=request.user.id)
-    adresse = 0
-    gender = 1
     address = Address.objects.filter(client__id=request.user.id)
-    for a in address:
-        adresse = a
+    adresse = 0
+    gender = 0
+    if address:
+        adresse = address[0]
         gender = adresse.gender
-        print(gender)
 
     if request.method == 'POST':
         if Address.objects.filter(client=client).exists():
-            address = Address.objects.get(client=client)
+            address = adresse
             address.gender = request.POST.get('gender')
             address.first_name = request.POST.get('first_name')
             address.last_name = request.POST.get('last_name')
@@ -182,6 +181,7 @@ def change_address(request):
             address.save()
             client.default_shipping_address = address
             client.save()
+            return redirect('my-account')
 
     context = {'address': adresse, 'gender': gender}
     return render(request, 'account/change-address.html', context)

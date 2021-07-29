@@ -4,7 +4,7 @@
 <div class="main-content">
     <div class="container">
         <div class="col-md-10">
-            <h1>Bienvenue dans la Boutique !</h1>
+            <h1>Voici les résultats pour '{{ search }}'</h1>
         </div>
         <div class="col-md-2">
             {% if request.user.is_authenticated %}
@@ -21,6 +21,8 @@
                         <input type="text" placeholder="Chercher un produit" name="search">
                         <button type="submit"><i class="fa fa-search"></i></button>
                     </form>
+                    <br><br>
+                    <span class="medium-button"><a href="{% url 'home-shop' %}">Retour boutique</a></span>
                 </div>
             </div>
         </div>
@@ -55,8 +57,7 @@
                                 {% if request.user.is_authenticated %}
                                 <span class="small-button"><a href="{% url 'addToCart' product.id 1 %}">Add ></a></span>
                                 {% endif %}
-                                <span class="small-button"><a
-                                        href="{% url 'product-detail' product.id %}">See ></a></span>
+                                <span class="small-button"><a href="{% url 'product-detail' product.id %}">See ></a></span>
                             </div>
                         </div>
                     </div>

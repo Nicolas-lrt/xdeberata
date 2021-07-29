@@ -3,17 +3,8 @@
 
 <div class="main-content">
     <div class="container">
-        <h1>Modifier mon adresse de livraison</h1>
-        <p>
-            Si vous souhaitez modifier votre adresse de compte client, vous pouvez le faire ci-dessous. Il s'agit de
-            l'adresse pour la livraison de vos commandes, ainsi que pour la facturation. Vous pourrez choisir une
-            adresse diférente pour la facturation lors de votre commande si souhaité.
-            <br>
-            N'oubliez pas de cliquer sur le bouton <strong style="font-weight: bold">'Enregistrer'</strong>
-            une fois la modification effectuée.
-        </p>
-        <br>
-        <h4>Nouvelle adresse :</h4><br>
+        <h1>Choisir une addresse de facturation</h1><br>
+
         <form method="POST">
             {% csrf_token %}
             <div class="col-md-4">
@@ -94,12 +85,12 @@
             </div><br><br><br>
 
             <br>
-            <span class="medium-button"><a href="{% url 'my-account' %}">Retour</a></span>
             <button type="submit">Enregistrer</button>
+            <span class="medium-button"><a href="{% url 'choose-address' %}">Retour</a></span>
         </form>
-
     </div>
 </div>
+
 
 <style>
     button {
@@ -119,6 +110,5 @@
         width: 300px;
     }
 </style>
-
 
 {% endblock %}

@@ -14,7 +14,7 @@ from django.views.generic import CreateView, TemplateView
 from slugify import slugify
 
 from account.decorators import admin_only
-from account.models import Account, CartLine, Order, OrderDetail
+from account.models import Account, CartLine, Order, OrderDetail, Address
 from account.views import isAdmin
 from projet import settings
 from shopping.forms import AddProductForm
@@ -37,6 +37,16 @@ def home_shop(request):
     context = {'products': produits, 'cartQty': getCartQty(request), 'admin': isAdmin(request)}
 
     return render(request, 'shopping/home-shop.html', context)
+
+
+def shop_search(request):
+    if request.method == "POST":
+        search = request.POST.get('search')
+        products = Product.objects.filter(Q(name__icontains=search) |
+                                          Q(mainDesc__icontains=search) |
+                                          Q(shortDesc__icontains=search))
+        context = {'products': products, 'search': search, 'cartQty': getCartQty(request)}
+        return render(request, 'shopping/shop-search.html', context)
 
 
 @login_required(login_url='login')
@@ -82,15 +92,10 @@ def clearCart(request):
     return redirect(request.META.get('HTTP_REFERER'))
 
 
-@login_required(login_url='login')
-def cartPage(request):
-    total_ht = 0
+def taxes(request):
     client = Account.objects.filter(userId=request.user.id)
-    cart = CartLine.objects.filter(client__in=client)
     for a in client:
         client = a
-    for cart_line in cart:
-        total_ht += cart_line.total_ht()
     if client.country == 'Canada':
         state = client.state
         if state == 'Alberta' or \
@@ -101,23 +106,30 @@ def cartPage(request):
                 state == 'Territoire-Nord-Ouest' or \
                 state == 'Yukon':
             taxe = 5
-            tot_taxe = total_ht * (5 / 100)
-            total = total_ht + tot_taxe
         elif state == 'Ile-du-Prince-Edouard' or \
                 state == 'Nouveau-Brunswick' or \
                 state == 'Nouvelle-Ecosse' or \
                 state == 'Terre-Neuve-et-Labrador':
             taxe = 15
-            tot_taxe = total_ht * (15 / 100)
-            total = total_ht + tot_taxe
         elif state == 'Ontario':
             taxe = 13
-            tot_taxe = total_ht * (13 / 100)
-            total = total_ht + tot_taxe
         elif state == 'Quebec':
             taxe = 14.975
-            tot_taxe = total_ht * (14.975 / 100)
-            total = total_ht + tot_taxe
+        return taxe
+
+
+@login_required(login_url='login')
+def cartPage(request):
+    total_ht = 0
+    client = Account.objects.filter(userId=request.user.id)
+    cart = CartLine.objects.filter(client__in=client)
+    for a in client:
+        client = a
+    for cart_line in cart:
+        total_ht += cart_line.total_ht()
+    taxe = taxes(request)
+    tot_taxe = total_ht * (taxe / 100)
+    total = total_ht + tot_taxe
 
     context = {'cart': cart,
                'client': client,
@@ -128,6 +140,147 @@ def cartPage(request):
                'qtyTotal': getCartQty(request)
                }
     return render(request, 'shopping/cart-page.html', context)
+
+
+@login_required
+def choose_address(request):
+    client = Account.objects.get(userId=request.user.id)
+    address = Address.objects.filter(client__id=request.user.id)
+    adresse = 0
+    gender = 0
+    if address:
+        adresse = address[0]
+        gender = adresse.gender
+
+    if request.method == 'POST':
+        print(request.POST.get('same-adr'))
+        if Address.objects.filter(client=client).exists():
+            address = adresse
+            address.gender = request.POST.get('gender')
+            address.first_name = request.POST.get('first_name')
+            address.last_name = request.POST.get('last_name')
+            address.company = request.POST.get('company')
+            address.address = request.POST.get('address')
+            address.additional_address = request.POST.get('additional_address')
+            address.postcode = request.POST.get('postcode')
+            address.city = request.POST.get('city')
+            address.phone = request.POST.get('phone')
+            address.mobilephone = request.POST.get('mobilephone')
+            address.workphone = request.POST.get('workphone')
+            address.save()
+            client.default_shipping_address = address
+
+            if client.default_invoicing_address is None:
+                client.default_invoicing_address = address
+            if request.POST.get('same-adr'):
+                client.default_invoicing_address = address
+
+            client.save()
+            return redirect('cart-recap')
+        else:
+            address = Address(client=client,
+                              gender=request.POST.get('gender'),
+                              first_name=request.POST.get('first_name'),
+                              last_name=request.POST.get('last_name'),
+                              company=request.POST.get('company'),
+                              address=request.POST.get('address'),
+                              additional_address=request.POST.get('additional_address'),
+                              postcode=request.POST.get('postcode'),
+                              city=request.POST.get('city'),
+                              phone=request.POST.get('phone'),
+                              mobilephone=request.POST.get('mobilephone'),
+                              workphone=request.POST.get('workphone'))
+            address.save()
+            client.default_shipping_address = address
+            if client.default_invoicing_address is None:
+                client.default_invoicing_address = address
+            client.save()
+            return redirect('cart-recap')
+
+    context = {'address': adresse, 'gender': gender, 'client': client}
+    return render(request, 'shopping/choose-address.html', context)
+
+
+@login_required
+def choose_invoice(request):
+    client = Account.objects.get(userId=request.user.id)
+    address = Address.objects.filter(client__id=request.user.id)
+    adresse = 0
+    gender = 0
+    if address:
+        if address[1] is not None:
+            adresse = address[1]
+        else:
+            adresse = address[0]
+        gender = adresse.gender
+
+    if request.method == 'POST':
+        if address[1] is not None:
+            address = adresse
+            address.gender = request.POST.get('gender')
+            address.first_name = request.POST.get('first_name')
+            address.last_name = request.POST.get('last_name')
+            address.company = request.POST.get('company')
+            address.address = request.POST.get('address')
+            address.additional_address = request.POST.get('additional_address')
+            address.postcode = request.POST.get('postcode')
+            address.city = request.POST.get('city')
+            address.phone = request.POST.get('phone')
+            address.mobilephone = request.POST.get('mobilephone')
+            address.workphone = request.POST.get('workphone')
+            address.save()
+            client.default_invoicing_address = address
+            client.save()
+            return redirect('choose-address')
+        else:
+            address = Address(client=client,
+                              gender=request.POST.get('gender'),
+                              first_name=request.POST.get('first_name'),
+                              last_name=request.POST.get('last_name'),
+                              company=request.POST.get('company'),
+                              address=request.POST.get('address'),
+                              additional_address=request.POST.get('additional_address'),
+                              postcode=request.POST.get('postcode'),
+                              city=request.POST.get('city'),
+                              phone=request.POST.get('phone'),
+                              mobilephone=request.POST.get('mobilephone'),
+                              workphone=request.POST.get('workphone'))
+            address.save()
+            client.default_invoicing_address = address
+            client.save()
+            return redirect('choose-address')
+
+    context = {'address': adresse, 'gender': gender}
+    return render(request, 'shopping/choose-invoice.html', context)
+
+
+@login_required
+def cart_recap(request):
+    total_ht = 0
+    client = Account.objects.filter(userId=request.user.id)
+    cart = CartLine.objects.filter(client__in=client)
+    for a in client:
+        client = a
+    for cart_line in cart:
+        total_ht += cart_line.total_ht()
+    taxe = taxes(request)
+    tot_taxe = total_ht * (taxe / 100)
+    total = total_ht + tot_taxe
+
+    shipping = client.default_shipping_address
+    invoice = client.default_invoicing_address
+
+    context = {'cart': cart,
+               'client': client,
+               'total_ht': total_ht,
+               'taxe': taxe,
+               'tot_taxe': tot_taxe,
+               'total': total,
+               'qtyTotal': getCartQty(request),
+               'shipping': shipping,
+               'invoice': invoice,
+               }
+    return render(request, 'shopping/cart-recap.html', context)
 
 
 @admin_only
@@ -190,7 +343,22 @@ def create_checkout_session(request):
                     'amount': str(int(cartLine.product.price * 100)),
                 }
             ]
+        total_ht = 0
+        for a in client:
+            client = a
+        for cart_line in cart:
+            total_ht += cart_line.total_ht()
+        taxe = taxes(request)
+        tot_taxe = total_ht * (taxe / 100)
 
+        lineItems += [
+            {
+                'name': 'Taxes (' + str(client.state) + ') : ' + str(taxe) + '%',
+                'quantity': 1,
+                'currency': 'eur',
+                'amount': str(int(tot_taxe * 100))
+            }
+        ]
         print(lineItems)
         try:
             # Create new Checkout Session for the order
@@ -238,6 +406,8 @@ def createOrder(request):
     if cart:
         order = Order(client_id=client.id,
                       order_date=datetime.datetime.now(),
+                      shipping_address=client.default_shipping_address,
+                      invoicing_address=client.default_invoicing_address,
                       status=Order.WAITING)
         order.save()
 

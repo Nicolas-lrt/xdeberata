@@ -47,6 +47,61 @@
             </tfoot>
         </table>
         <br>
+        <div class="col-md-6">
+            <h3>Adresse de livraison</h3><br>
+            <div class="col-md-5">
+                <label>Prénom : </label><br><br>
+                <label>Nom :</label><br><br>
+                <label>Genre :</label><br><br>
+                <label>Société :</label><br><br>
+                <label>Adresse :</label><br><br>
+                <label>Complément d'adresse :</label><br><br>
+                <label>Code postal :</label><br><br>
+                <label>Ville :</label><br><br>
+                <label>Téléphone :</label><br><br>
+                <label>Téléphone portable :</label><br><br>
+                <label>Téléphone professionel :</label>
+            </div>
+            {{ order.shipping_address.first_name }}<br><br>
+            {{ order.shipping_address.last_name }}<br><br>
+            {{ order.shipping_address.gender }}<br><br>
+            {{ order.shipping_address.company }}<br><br>
+            {{ order.shipping_address.address }}<br><br>
+            {{ order.shipping_address.additional_address }}<br><br>
+            {{ order.shipping_address.postcode }}<br><br>
+            {{ order.shipping_address.city }}<br><br>
+            {{ order.shipping_address.phone }}<br><br>
+            {{ order.shipping_address.mobilephone }}<br><br>
+            {{ order.shipping_address.workphone }}<br><br>
+        </div>
+
+        <div class="col-md-6">
+            <h3>Adresse de facturation</h3><br>
+            <div class="col-md-5">
+                <label>Prénom : </label><br><br>
+                <label>Nom :</label><br><br>
+                <label>Genre :</label><br><br>
+                <label>Société :</label><br><br>
+                <label>Adresse :</label><br><br>
+                <label>Complément d'adresse :</label><br><br>
+                <label>Code postal :</label><br><br>
+                <label>Ville :</label><br><br>
+                <label>Téléphone :</label><br><br>
+                <label>Téléphone portable :</label><br><br>
+                <label>Téléphone professionel :</label>
+            </div>
+            {{ order.invoicing_address.first_name }}<br><br>
+            {{ order.invoicing_address.last_name }}<br><br>
+            {{ order.invoicing_address.gender }}<br><br>
+            {{ order.invoicing_address.company }}<br><br>
+            {{ order.invoicing_address.address }}<br><br>
+            {{ order.invoicing_address.additional_address }}<br><br>
+            {{ order.invoicing_address.postcode }}<br><br>
+            {{ order.invoicing_address.city }}<br><br>
+            {{ order.invoicing_address.phone }}<br><br>
+            {{ order.invoicing_address.mobilephone }}<br><br>
+            {{ order.invoicing_address.workphone }}<br><br>
+        </div>
         <span class="medium-button"><a href="{% url 'orders-page' %}">Retour vers mes commandes</a></span>
         {% if admin %}
         <span class="medium-button"><a href="{% url 'order-list' %}">Retour vers commandes des clients</a></span><br>

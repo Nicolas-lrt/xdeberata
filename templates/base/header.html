@@ -29,6 +29,7 @@
                     <li><a href="#">Bienvenu, {{ request.user }}</a>
                         <ul>
                             <li><a href="{% url 'my-account' %}">Mon compte</a></li>
+                            <li><a href="{% url 'cart-page' %}">Mon panier</a></li>
                             <li><a href="{% url 'orders-page' %}">Mes commandes</a></li>
                             <li><a href="{% url 'logout' %}">Déconnexion</a></li>
                         </ul>

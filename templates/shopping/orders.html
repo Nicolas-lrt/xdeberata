@@ -4,7 +4,7 @@
     <div class="container">
         <h1>Mes commandes</h1><br>
         {% for order in orders %}
-        <div class="col-sm-4" style="border: 1px solid black; border-radius: 20px; width: 24%; height: 210px; margin-left: 10px">
+        <div class="col-sm-4" style="border: 1px solid black; border-radius: 20px; width: 24%; height: 220px; margin-left: 10px">
             <br>
             <h5>Date commande : {{ order.order_date }}</h5><br>
             <h5>Etat commande :</h5> <p>{{ order.get_status_display }}</p><br>
