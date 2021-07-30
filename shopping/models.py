@@ -4,6 +4,7 @@ from django.db import models
 
 
 # Create your models here.
+from django.urls import reverse
 from slugify import slugify
 
 
@@ -37,3 +38,6 @@ class Product(models.Model):
 
     def setSlug(self):
         self.slug = slugify(self.name)
+
+    def get_absolute_url(self):
+        return reverse('home-shop')

@@ -37,11 +37,12 @@
                 </div>
             </div>
             <br>
-            <span class="medium-button"><a href="#">Acheter</a></span>
             {% if request.user.is_authenticated %}
             <span class="medium-button"><a href="{% url 'addToCart' product.id 1 %}">Ajouter au panier</a></span>
             {% endif %}
+            <span class="medium-button"><a href="{% url 'home-shop' %}">Retourner à la boutique</a></span>
             {% if admin %}
+            <span class="medium-button"><a href="{% url 'update-product' product.pk %}">Modifier le produit</a></span>
             <span class="medium-button"><a href="{% url 'delete-product' product.id %}">Supprimer le produit</a></span>
             {% endif %}
 

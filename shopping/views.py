@@ -10,7 +10,7 @@ from django.shortcuts import render, redirect
 # Create your views here.
 from django.urls import reverse_lazy, reverse
 from django.views.decorators.csrf import csrf_exempt
-from django.views.generic import CreateView, TemplateView
+from django.views.generic import CreateView, TemplateView, UpdateView
 from slugify import slugify
 
 from account.decorators import admin_only
@@ -295,6 +295,27 @@ class AddProduct(CreateView):
     form_class = AddProductForm
     template_name = 'shopping/add-product.html'
     success_url = reverse_lazy('home-shop')
+
+
+class UpdateProductView(UpdateView):
+    model = Product
+    template_name = 'shopping/update-product.html'
+    fields = ['name',
+              'price',
+              'tag',
+              'mainDesc',
+              'shortDesc',
+              'mainImg',
+              'additionalImg1',
+              'additionalImg2',
+              'additionalImg3',
+              'additionalImg4',
+              'additionalImg5',
+              'additionalImg6',
+              'additionalImg7',
+              'additionalImg8',
+              'additionalImg9',
+              ]
 
 
 def product_detail(request, pk):

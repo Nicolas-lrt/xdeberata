@@ -1,0 +1,44 @@
+{% extends 'base/main.html' %}
+{% block contenu %}
+
+<!-- Main Content -->
+<div class="main-content">
+    <div class="container">
+        <h1>Modifier un poste</h1>
+        <br>
+        <br>
+        <form method="POST" action="" enctype='multipart/form-data'>
+            {% csrf_token %}
+<!--            {{ form.as_p }}-->
+            {{ form.media }}
+            {% for champ in form %}
+            <div class="col-md-2">
+                {{ champ.label }}
+            </div>
+            <div class="col-md-10">
+                {{ champ }}
+            </div>
+            <br>
+            <br>
+            <br>
+            {% endfor %}
+            <br>
+            <span class="large-button"><a href="{% url 'home-shop' %}">Cancel</a></span>
+            <button style="background-color: #000;
+                           color: #fff;
+                           font-family: 'Lato', sans-serif;
+                           text-transform: uppercase;
+                           letter-spacing: .8px;
+                           padding: 12px;
+                           font-size: 10px;
+                           line-height: 10px;
+                            margin-top: 2%"
+                    type="submit">
+                Send
+            </button>
+        </form>
+    </div>
+</div>
+
+
+{% endblock %}
