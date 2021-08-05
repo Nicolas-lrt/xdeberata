@@ -104,6 +104,7 @@ class Order(models.Model):
     Une commande est passée par un client et comprend des lignes de commandes ainsi que des adresses.
     """
     client = models.ForeignKey(Account, on_delete=models.CASCADE, verbose_name="Client ayant passé commande")
+    taxes = models.FloatField(verbose_name="Taxes sur la commande", default=0)
     shipping_address = models.ForeignKey(Address,
                                          verbose_name="Adresse de livraison",
                                          related_name="order_shipping_address",
@@ -144,6 +145,13 @@ class Order(models.Model):
         for order_detail in order_details:
             total += order_detail.total()
         return round(total, 2)
+
+    @property
+    def total_ttc(self):
+        total = self.total
+        taxe = total * (self.taxes / 100)
+        total_ttc = total + taxe
+        return total_ttc
 
     def article_qty(self):
         order_details = OrderDetail.objects.filter(order_id=self.id)

@@ -56,7 +56,7 @@
                     {{ taxe }}% ({{ client.state }})
                 </td>
                 <td style="text-align: center">
-                    ${{ tot_taxe }}
+                    ${{ tot_taxe|floatformat:'2' }}
                 </td>
 
             </tr>
@@ -68,7 +68,7 @@
                     {{ qtyTotal }}  produit(s)
                 </td>
                 <td style="text-align: center">
-                    ${{ total }}
+                    ${{ total|floatformat:'2' }}
                 </td>
                 <td style="text-align: center;">
                     <a href="{% url 'clear-cart' %}">Vider le panier</a>

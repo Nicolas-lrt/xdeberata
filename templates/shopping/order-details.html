@@ -26,7 +26,7 @@
                     {{ detail.qty }}
 
                 </td>
-                <td>
+                <td style="text-align: center">
                     ${{ detail.product_unit_price }}
                 </td>
 
@@ -35,13 +35,35 @@
             <tfoot>
             <tr>
                 <td style="font-size: 22px">
-                    <strong>Total</strong>
+                    <strong>Total HT</strong>
                 </td>
-                <td>
+                <td style="text-align: center">
                     <strong>{{ order.article_qty }}  produit(s)</strong>
                 </td>
-                <td>
+                <td style="text-align: center">
                     <strong>${{ order.total }}</strong>
+                </td>
+            </tr>
+            <tr>
+                <td style="font-size: 20px">
+                    <strong>Taxes</strong>
+                </td>
+                <td style="text-align: center">
+                    <strong>{{ order.taxes }}%</strong>
+                </td>
+                <td style="text-align: center">
+                    <strong>${{ tot_taxes|floatformat:'2' }}</strong>
+                </td>
+            </tr>
+            <tr>
+                <td style="font-size: 22px">
+                    <strong>Total TTC</strong>
+                </td>
+                <td>
+
+                </td>
+                <td style="text-align: center">
+                    <strong>${{ order.total_ttc }}</strong>
                 </td>
             </tr>
             </tfoot>

@@ -32,6 +32,32 @@ def getCartQty(request):
     return qtyTotal
 
 
+def taxes(request):
+    client = Account.objects.filter(userId=request.user.id)
+    for a in client:
+        client = a
+    if client.country == 'Canada':
+        state = client.state
+        if state == 'Alberta' or \
+                state == 'Colombie-Britanique' or \
+                state == 'Manitoba' or \
+                state == 'Nanavut' or \
+                state == 'Saskatchewan' or \
+                state == 'Territoire-Nord-Ouest' or \
+                state == 'Yukon':
+            taxe = 5
+        elif state == 'Ile-du-Prince-Edouard' or \
+                state == 'Nouveau-Brunswick' or \
+                state == 'Nouvelle-Ecosse' or \
+                state == 'Terre-Neuve-et-Labrador':
+            taxe = 15
+        elif state == 'Ontario':
+            taxe = 13
+        elif state == 'Quebec':
+            taxe = 14.975
+        return taxe
+
+
 def home_shop(request):
     produits = Product.objects.all()
     context = {'products': produits, 'cartQty': getCartQty(request), 'admin': isAdmin(request)}
@@ -90,32 +116,6 @@ def clearCart(request):
     CartLine.objects.filter(client_id=client.id).delete()
 
     return redirect(request.META.get('HTTP_REFERER'))
-
-
-def taxes(request):
-    client = Account.objects.filter(userId=request.user.id)
-    for a in client:
-        client = a
-    if client.country == 'Canada':
-        state = client.state
-        if state == 'Alberta' or \
-                state == 'Colombie-Britanique' or \
-                state == 'Manitoba' or \
-                state == 'Nanavut' or \
-                state == 'Saskatchewan' or \
-                state == 'Territoire-Nord-Ouest' or \
-                state == 'Yukon':
-            taxe = 5
-        elif state == 'Ile-du-Prince-Edouard' or \
-                state == 'Nouveau-Brunswick' or \
-                state == 'Nouvelle-Ecosse' or \
-                state == 'Terre-Neuve-et-Labrador':
-            taxe = 15
-        elif state == 'Ontario':
-            taxe = 13
-        elif state == 'Quebec':
-            taxe = 14.975
-        return taxe
 
 
 @login_required(login_url='login')
@@ -424,14 +424,15 @@ class CancelledView(TemplateView):
 def createOrder(request):
     client = Account.objects.get(userId=request.user.id)
     cart = CartLine.objects.filter(client_id=client.id)
+    total_ht = 0
     if cart:
         order = Order(client_id=client.id,
+                      taxes=taxes(request),
                       order_date=datetime.datetime.now(),
                       shipping_address=client.default_shipping_address,
                       invoicing_address=client.default_invoicing_address,
                       status=Order.WAITING)
         order.save()
-
         for cartline in cart:
             order_detail = OrderDetail(order_id=order.id,
                                        product_id=cartline.product.id,
@@ -439,6 +440,8 @@ def createOrder(request):
                                        product_unit_price=cartline.product.price
                                        )
             order_detail.save()
+            total_ht += cartline.total_ht()
+
         cart.delete()
     if request.META.get('HTTP_REFERER'):
         return redirect(request.META.get('HTTP_REFERER'))
@@ -455,11 +458,14 @@ def orderPage(request):
 @login_required
 def orderDetails(request, pk):
     order = Order.objects.get(id=pk)
-    print(order.status)
+    taxe = order.taxes
+    total = order.total
+    tot_taxes = total * (taxe / 100)
     orderDetail = OrderDetail.objects.filter(order_id=order.id)
     return render(request, 'shopping/order-details.html', {'orderDetail': orderDetail,
                                                            'order': order,
-                                                           'admin': isAdmin(request)})
+                                                           'admin': isAdmin(request),
+                                                           'tot_taxes': tot_taxes})
 
 
 @admin_only

@@ -9,7 +9,7 @@
             <h5>Date commande : {{ order.order_date }}</h5><br>
             <h5>Etat commande :</h5> <p>{{ order.get_status_display }}</p><br>
             <p>Nombres d'articles : {{ order.article_qty }}</p><br>
-            <p>Total : ${{ order.total }}</p><br>
+            <p>Total : ${{ order.total_ttc }}</p><br>
             <span class="medium-button"><a href="{% url 'orderDetail' order.id %}">Détails</a></span>
         </div>
         {% empty %}
